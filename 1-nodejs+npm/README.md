@@ -35,7 +35,13 @@ Beispiel:
 npm install gulp
 ```
 
-`npm` hat Tausende von Modulen. Auf der [npm Homepage](https://www.npmjs.com/) können sie bequem gesucht werden. Projektübergreifende Tools werden global mit dem Parameter `-g` oder `--global` installiert. Beispiel:
+`npm` hat Tausende von Modulen. Sucht man ein bestimmtes Modul, hat man zwei Moglichkeiten - die Suche auf der [npm Homepage](https://www.npmjs.com/) oder via
+
+```sh
+npm search <search term>
+```
+
+Projektübergreifende Tools werden global mit dem Parameter `-g` oder `--global` installiert. Beispiel:
 
 ```sh
 npm install gulp -g
@@ -55,7 +61,15 @@ npm update <modulename>
 
 aktualisiert. Der Befehl muss im Projekt-Hauptverzeichnis ausgeführt werden. Für globale Module wird der Parameter `-g` oder `--global` benutzt. Wird der Modulename weggelassen, werden alle Module in einem Rutsch aktualisiert.
 
-Wo genau werden aber die projektspezifischen Module installiert?
+Wo genau werden aber die projektspezifischen Module installiert? Dazu legen wir ein leeres Projekt-Verzeichnis an und führen dort folgendes aus:
+
+```sh
+npm init
+```
+
+Daraufhin wird eine Datei namens `package.json` angelegt. Das Erzeugen von `package.json` ist interaktiv Es werden einige Fragen gestellt, die man beantworten muss. Man kann die Datei selbstverständlich auch nachträglich anpassen, z.B. die Tags `repository`, `keywords`, `script`, usw. einfügen. Eine gute Übersicht aller möglichen Einstellungen gibt es in der [offizellen Dokumentation](https://docs.npmjs.com/files/package.json). Wenn man die Applikation nicht in der öffentlichen `npm` Repository veröffentlichen will, sollte man die Property `private` auf `true` setzen: `"private": true`. 
+
+Java-Entwickler können diese Datei als `pom.xml` in Maven vorstellen. Dort werden auch Projekt-Dependencies verwaltet. Es gibt zwei Arten von Dependencies:
 
 
 
