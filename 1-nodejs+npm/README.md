@@ -86,6 +86,7 @@ Installiert man eine Dependency mit
 npm install <modulename> --save
 ```
 wird sie auch in der `package.json` Datei, in der Sektion `dependencies`, gespeichert. D.h. in der `package.json` Datei werden dann alle benötigten Dependencies aufgelistet. Das ist wichtig, wenn man in einem Team arbeitet. `package.json` steht unter Versionskontrolle. Wenn nun eine andere Person das Projekt auscheckt und `npm install` ausfrühren läßt, hat sie automatisch alle Dependencies bei sich lokal im Verzeichnis `node_modules` (`node_modules` steht nicht unter Versionskontrolle).
+
 2. Dependencies, die man zur Build-Zeit braucht. Das sind z.B. die Build-Tools wie Gulp oder Webpack, Development-Server, Test-Frameworks, Linting Tools, u.ä. Java-Entwickler können sich solche Dependencies als Maven Plugins vorstellen. Sie werden nicht mit der Web Applikation ausgeliefert. Solche Dependencies muss man mit
 ```sh
 npm install <modulename> --save-dev
@@ -107,7 +108,7 @@ Die Datei `package.json` hat somit zwei wichtige Sektionen: `devDependencies` un
 }
 ```
 
-Es gibt noch eine Sektion `peerDependencies`. Dort werden alle Dependencies mit bestimmten Versionen aufgelistet, die man braucht, damit das Modul (eine Bibliothek) normal funktionieren kann. Die `npm` Version 3 gibt eine Warnung aus, falls eine Dependency aus `peerDependencies` noch nicht installiert ist. Frühere Versionen von [PrimeNG](http://www.primefaces.org/primeng/) haben z.B. eine Dependency zu [PrimeUI](http://www.primefaces.org/primeui/) verlangt:
+Es gibt noch eine Sektion `peerDependencies`. Dort werden alle Dependencies mit bestimmten Versionen aufgelistet, die man braucht, damit das aktuelle Modul (eine Bibliothek) normal funktionieren kann. Die `npm` Version 3 gibt eine Warnung aus, falls eine Dependency aus `peerDependencies` noch nicht installiert ist. Frühere Versionen von [PrimeNG](http://www.primefaces.org/primeng/) haben z.B. eine Dependency zu [PrimeUI](http://www.primefaces.org/primeui/) verlangt:
 
 ```sh
 "peerDependencies": {
