@@ -71,7 +71,7 @@ Daraufhin wird eine Datei namens `package.json` angelegt. Das Erzeugen von `pack
 
 Java-Entwickler können diese Datei als `pom.xml` in Maven vorstellen. Dort werden auch Projekt-Dependencies verwaltet. Es gibt zwei Arten von Dependencies:
 
-1. Dependencies, die man zur Laufzeit braucht. Die werden mit der Web Applikation gebündelt und ausgeliefert. Das wären z.B. jQuery, AngularJS, TypeScript o.ä. Bibliotheken. Sie werden im Projekt-Hauptverzeichnis installiert, d.h. lokal, ohne den Parameter `-g` oder `--global`. Java-Entwickler können sich solche Dependencies als JAR Dateien unter `WEB-INF/lib` vorstellen. Die Module werden in einen Unterordner namens `node_modules` heruntergeladen und stehen damit dem ganzen Projekt zur Verfügung. Führt man z.B. `npm install underscore` aus, hat man die folgende Struktur:
+__1)__ Dependencies, die man zur Laufzeit braucht. Die werden mit der Web Applikation gebündelt und ausgeliefert. Das wären z.B. jQuery, AngularJS, TypeScript o.ä. Bibliotheken. Sie werden im Projekt-Hauptverzeichnis installiert, d.h. lokal, ohne den Parameter `-g` oder `--global`. Java-Entwickler können sich solche Dependencies als JAR Dateien unter `WEB-INF/lib` vorstellen. Die Module werden in einen Unterordner namens `node_modules` heruntergeladen und stehen damit dem ganzen Projekt zur Verfügung. Führt man z.B. `npm install underscore` aus, hat man die folgende Struktur:
 ```sh
 <projekt root>
     node_modules
@@ -87,7 +87,7 @@ npm install <modulename> --save
 ```
 wird sie auch in der `package.json` Datei, in der Sektion `dependencies`, gespeichert. D.h. in der `package.json` Datei werden dann alle benötigten Dependencies aufgelistet. Das ist wichtig, wenn man in einem Team arbeitet. `package.json` steht unter Versionskontrolle. Wenn nun eine andere Person das Projekt auscheckt und `npm install` ausfrühren läßt, hat sie automatisch alle Dependencies bei sich lokal im Verzeichnis `node_modules` (`node_modules` steht nicht unter Versionskontrolle).
 
-2. Dependencies, die man zur Build-Zeit braucht. Das sind z.B. die Build-Tools wie Gulp oder Webpack, Development-Server, Test-Frameworks, Linting Tools, u.ä. Java-Entwickler können sich solche Dependencies als Maven Plugins vorstellen. Sie werden nicht mit der Web Applikation ausgeliefert. Solche Dependencies muss man mit
+__2)__ Dependencies, die man zur Build-Zeit braucht. Das sind z.B. die Build-Tools wie Gulp oder Webpack, Development-Server, Test-Frameworks, Linting Tools, u.ä. Java-Entwickler können sich solche Dependencies als Maven Plugins vorstellen. Sie werden nicht mit der Web Applikation ausgeliefert. Solche Dependencies muss man mit
 ```sh
 npm install <modulename> --save-dev
 ```
