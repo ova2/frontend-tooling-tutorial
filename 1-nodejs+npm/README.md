@@ -116,7 +116,7 @@ Es gibt noch eine Sektion `peerDependencies`. Dort werden alle Dependencies mit 
 }
 ```
 
-Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul hat eine Version im Format X.Y.Z (Major.Minor.Patch). Behebt der Entwickler einen Fehler, ohne die Abwärtskompatibilität zu beeinträchtigen, wird lediglich die Patchnummer um 1 erhöht. Fügt der Entwickler neue Funktionalität hinzu ohne Beeinträchtigung der Abwärtskompatibilität, wird die Minornummer um 1 erhöht. Beeinträchtigt der Entwickler die Abwärtskompatibilität, wird die Majornummer um 1 erhöht. Bei den Dependencies kann kann nicht nur exakte Versionen eingeben, sondern auch Ranges und mehr. Man kann mit Versionen beim [npm semver calculator](http://semver.npmjs.com/) spielen. Dann wird es klar, wie man Major, Minor, Patch Versionen, Ranges oder exakte Versionen auswählen kann. Hier sind einige Beispiele:
+Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul hat eine Version im Format X.Y.Z (Major.Minor.Patch). Behebt der Entwickler einen Fehler, ohne die Abwärtskompatibilität zu beeinträchtigen, wird lediglich die Patchnummer um 1 erhöht. Fügt der Entwickler neue Funktionalität hinzu ohne Beeinträchtigung der Abwärtskompatibilität, wird die Minornummer um 1 erhöht. Beeinträchtigt der Entwickler die Abwärtskompatibilität, wird die Majornummer um 1 erhöht. Bei den Dependencies kann kann nicht nur exakte Versionen angeben, sondern auch Ranges und mehr. [npm semver calculator](http://semver.npmjs.com/) stellt eine gute "Spielwiese" dar, um dies auszuprobieren. Es wird schnell klar, wie man Major, Minor, Patch Versionen, Ranges oder exakte Versionen auswählen kann. Hier sind einige Beispiele:
 
 ```sh
 "dependencies": {
@@ -140,7 +140,7 @@ npm install sax@">=0.1.0 <0.2.0" --save
 npm install -g git+https://git@github.com/gulpjs/gulp-cli.git#4.0
 ```
 
-`npm` hat eine eingebaute Versions-Bumping. Damit wird die Versionsnummer in der `package.json` Datei um eins erhöht, ein Git-Commit gemacht und dieser Commit getaggt. Das sind die Befehle:
+`npm` hat eine eingebaute Versions-Bumping. Damit wird die Versionsnummer in der `package.json` Datei um eins erhöht, ein Git-Commit gemacht und dieser Commit getaggt. Hier sind die Befehle:
 
 ```sh
 npm version patch  // Beispiel-Ergebnis: 1.1.1 -> 1.1.2
@@ -148,7 +148,7 @@ npm version minor  // Beispiel-Ergebnis: 1.1.1 -> 1.2.0
 npm version major  // Beispiel-Ergebnis: 1.1.1 -> 2.0.0
 ```
 
-Mit dem Parameter `--git-tag-version=false` kann man das Tagging unterbinden. Das geht auch dauerhaft mit dem Befehl `npm config set git-tag-version false`. Mit dem Befehl `npm config set` kann man übrigens verschiedene Konfigurationsmöglichkeiten vornehmen. Oft wird es verwendet, um einen Proxy-Server in einem Unternehmensnetz für `npm` bekanntzugeben. 
+Mit dem Parameter `--git-tag-version=false` kann man das Tagging unterbinden. Das geht auch dauerhaft mit dem Befehl `npm config set git-tag-version false`. Mit dem Befehl `npm config set` kann man übrigens verschiedene Konfigurationsmöglichkeiten vornehmen. Es wird oft verwendet, um einen Proxy-Server in einem Unternehmensnetz für `npm` bekanntzugeben. 
  
 ```sh
 npm config set proxy http://proxy.company.com:8080
@@ -161,6 +161,6 @@ oder wenn man einen privaten `npm` Server für das Unternehmen aufgesetzt hat (a
 npm config set registry https://<whatever>/
 ```
 
-Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert.
+Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert. Die Datei `.npmrc` wird entweder im Projekt-Hauptverzeichnis (Konfiguration pro Projekt) oder im Benutzer-Homeverzeichnis angelegt. D.h. entweder irgendwo in `/path/to/my/project/.npmrc` oder `~/.npmrc`.
 
 Weitere nützliche `npm` Befehle
