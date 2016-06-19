@@ -67,11 +67,11 @@ Wo genau werden aber die projektspezifischen Module installiert? Dazu legen wir 
 npm init
 ```
 
-Daraufhin wird eine Datei namens `package.json` angelegt. Das Erzeugen von `package.json` ist interaktiv. Es werden einige Fragen gestellt, die man beantworten muss. Man kann die Datei selbstverständlich auch nachträglich anpassen, z.B. die Tags `repository`, `keywords`, `script`, usw. hinzufügen. Eine gute Übersicht aller möglichen Einstellungen gibt es in der [offizellen Dokumentation](https://docs.npmjs.com/files/package.json). Wenn man die Applikation nicht in der öffentlichen `npm` Repository veröffentlichen will, sollte man die Property `private` auf `true` setzen: `"private": true`. 
+Daraufhin wird eine Datei namens `package.json` angelegt. Das Erzeugen von `package.json` ist interaktiv. Es werden einige Fragen gestellt, die man beantworten muss. Man kann die Datei selbstverständlich auch nachträglich anpassen, z.B. die Tags `repository`, `keywords`, `script`, usw. hinzufügen. Eine gute Übersicht aller möglichen Einstellungen gibt es in der [offizellen Dokumentation](https://docs.npmjs.com/files/package.json). Wenn man die Applikation nicht in dem öffentlichen `npm` Repository veröffentlichen will, sollte man die Property `private` auf `true` setzen: `"private": true`. 
 
 Java-Entwickler können diese Datei als `pom.xml` in Maven vorstellen. Dort werden auch Projekt-Dependencies verwaltet. Es gibt zwei Arten von Dependencies:
 
-__1)__ Dependencies, die man zur Laufzeit braucht. Die werden mit der Web Applikation gebündelt und ausgeliefert. Das wären z.B. jQuery, AngularJS, TypeScript o.ä. Bibliotheken. Sie werden im Projekt-Hauptverzeichnis installiert, d.h. lokal, ohne den Parameter `-g` oder `--global`. Java-Entwickler können sich solche Dependencies als JAR Dateien unter `WEB-INF/lib` vorstellen. Die Module werden in einen Unterordner namens `node_modules` heruntergeladen und stehen damit dem ganzen Projekt zur Verfügung. Führt man z.B. `npm install underscore` aus, hat man die folgende Struktur:
+__1.)__ Dependencies, die man zur Laufzeit braucht. Die werden mit der Web Applikation gebündelt und ausgeliefert. Das wären z.B. jQuery, AngularJS, TypeScript o.ä. Bibliotheken. Sie werden im Projekt-Hauptverzeichnis installiert, d.h. lokal, ohne den Parameter `-g` oder `--global`. Java-Entwickler können sich solche Dependencies als JAR Dateien unter `WEB-INF/lib` vorstellen. Die Module werden in einen Unterordner namens `node_modules` heruntergeladen und stehen damit dem ganzen Projekt zur Verfügung. Führt man z.B. `npm install underscore` aus, hat man die folgende Struktur:
 ```sh
 <projekt root>
     node_modules
@@ -87,7 +87,7 @@ npm install <modulename> --save
 ```
 wird sie auch in der `package.json` Datei, in der Sektion `dependencies`, gespeichert. D.h. in der `package.json` Datei werden dann alle benötigten Dependencies aufgelistet. Das ist wichtig, wenn man in einem Team arbeitet. `package.json` steht unter Versionskontrolle. Wenn nun eine andere Person das Projekt auscheckt und `npm install` ausfrühren läßt, hat sie automatisch alle Dependencies bei sich lokal im Verzeichnis `node_modules` (`node_modules` steht nicht unter Versionskontrolle).
 
-__2)__ Dependencies, die man zur Build-Zeit braucht. Das sind z.B. die Build-Tools wie Gulp oder Webpack, Development-Server, Test-Frameworks, Linting Tools, u.ä. Java-Entwickler können sich solche Dependencies als Maven Plugins vorstellen. Sie werden nicht mit der Web Applikation ausgeliefert. Solche Dependencies muss man mit
+__2.)__ Dependencies, die man zur Build-Zeit braucht. Das sind z.B. die Build-Tools wie Gulp oder Webpack, Development-Server, Test-Frameworks, Linting Tools, u.ä. Java-Entwickler können sich solche Dependencies als Maven Plugins vorstellen. Sie werden nicht mit der Web Applikation ausgeliefert. Solche Dependencies muss man mit
 ```sh
 npm install <modulename> --save-dev
 ```
@@ -116,9 +116,51 @@ Es gibt noch eine Sektion `peerDependencies`. Dort werden alle Dependencies mit 
 }
 ```
 
+Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul hat eine Version im Format X.Y.Z (Major.Minor.Patch). Behebt der Entwickler einen Fehler, ohne die Abwärtskompatibilität zu beeinträchtigen, wird lediglich die Patchnummer um 1 erhöht. Fügt der Entwickler neue Funktionalität hinzu ohne Beeinträchtigung der Abwärtskompatibilität, wird die Minornummer um 1 erhöht. Beeinträchtigt der Entwickler die Abwärtskompatibilität, wird die Majornummer um 1 erhöht. Bei den Dependencies kann kann nicht nur exakte Versionen eingeben, sondern auch Ranges und mehr. Man kann mit Versionen beim [npm semver calculator](http://semver.npmjs.com/) spielen. Dann wird es klar, wie man Major, Minor, Patch Versionen, Ranges oder exakte Versionen auswählen kann. Hier sind einige Beispiele:
 
+```sh
+"dependencies": {
+  "package1": "1.0.0",         // exakte 1.0.0 Version
+  "package2": "1.0.x",         // nur die Patch-Releases in Version 1.0 (meist empfohlen)
+  "package3": "*",             // letzte Version (nicht empfohlen)
+  "package4": ">=1.0.0",       // beliebige Änderungen nach 1.0.0
+  "package5": "<1.9.0",        // eine Version kleiner als 1.9.0
+  "package6": "~1.8.0",        // Shorthand für >= 1.8.0 < 1.9.0
+  "package7": "^1.1.0",        // Shorthand für >=1.1.0 < 2.0.0
+  "package8": "latest",        // Tag name für die latest Version
+  "package9": "<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0"
+}
+```
 
+Die exakten Versionen und Ranges kann man auch explizit bei der Installation angeben. Auch bestimmte Git-Branches lassen sich angeben. Beispiele:
 
+```sh
+npm install jquery@1.11.0 --save
+npm install sax@">=0.1.0 <0.2.0" --save
+npm install -g git+https://git@github.com/gulpjs/gulp-cli.git#4.0
+```
 
+`npm` hat eine eingebaute Versions-Bumping. Damit wird die Versionsnummer in der `package.json` Datei um eins erhöht, ein Git-Commit gemacht und dieser Commit getaggt. Das sind die Befehle:
 
+```sh
+npm version patch  // Beispiel-Ergebnis: 1.1.1 -> 1.1.2
+npm version minor  // Beispiel-Ergebnis: 1.1.1 -> 1.2.0
+npm version major  // Beispiel-Ergebnis: 1.1.1 -> 2.0.0
+```
 
+Mit dem Parameter `--git-tag-version=false` kann man das Tagging unterbinden. Das geht auch dauerhaft mit dem Befehl `npm config set git-tag-version false`. Mit dem Befehl `npm config set` kann man übrigens verschiedene Konfigurationsmöglichkeiten vornehmen. Oft wird es verwendet, um einen Proxy-Server in einem Unternehmensnetz für `npm` bekanntzugeben. 
+ 
+```sh
+npm config set proxy http://proxy.company.com:8080
+npm config set https-proxy http://proxy.company.com:8080
+```
+
+oder wenn man einen privaten `npm` Server für das Unternehmen aufgesetzt hat (anstatt Default https://registry.npmjs.org/) und ihn beim `npm` registrieren möchte.
+
+```sh
+npm config set registry https://<whatever>/
+```
+
+Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert.
+
+Weitere nützliche `npm` Befehle
