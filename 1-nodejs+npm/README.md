@@ -186,10 +186,6 @@ Die Ausgabe sieht ungefähr so aus:
 |   Delete files/folders using globs
 |   git+https://github.com/sindresorhus/del.git
 |   https://github.com/sindresorhus/del
-+-- gulp-autoprefixer@3.1.0
-|   Prefix CSS
-|   git+https://github.com/sindresorhus/gulp-autoprefixer.git
-|   https://github.com/sindresorhus/gulp-autoprefixer
 +-- gulp-clean-css@2.0.7
 |   Minify css with clean-css.
 |   git+https://github.com/scniro/gulp-clean-css.git
@@ -218,4 +214,4 @@ run-sequence            1.1.5   1.2.1   1.2.1  gulp-book
 serve-static           1.10.2  1.11.1  1.11.1  gulp-book
 ```
 
-Wie schon erwähnt wurde, werden Module mit `npm update` aktualisiert.
+Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden.
