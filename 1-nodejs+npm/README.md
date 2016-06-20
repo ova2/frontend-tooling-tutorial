@@ -2,7 +2,7 @@
 
 [Node.js](https://nodejs.org) ist eine server-seitige Plattform und die Laufzeitumgebung für JavaScript. Damit kann der server-seitige JavaScript Code ausgeführt werden. Für die Installation wird eine Long Term Support (LTS) Version empfohlen, aber es kann auch [jede beliebige releaste Version](https://nodejs.org/en/blog/release/) heruntergeladen und installiert werden.
 
-Mit Node.js wird auch Node Package Manager (Paketmanager) `npm` automatisch installiert. Mit dem Paketmanager lassen sich Node.js Module aus einem `npm` Registry installieren. Der Pfad zu Node.js und `npm` wird zur Umgebungsvariable `PATH` hinzugefügt (normalerweise automatisch, falls man nichts anderes bei der Installation ausgewählt hat). Danach kann man `npm` von überall in der Console aufrufen. Die installierten Node.js und `npm` Versionen lassen sich wie folgt abfragen:
+Mit Node.js wird auch Node Package Manager (Paketmanager) `npm` automatisch installiert. Mit dem Paketmanager lassen sich Node.js Module (noch Packages genannt) aus einem `npm` Registry installieren. Der Pfad zu Node.js und `npm` wird zur Umgebungsvariable `PATH` hinzugefügt (normalerweise automatisch, falls man nichts anderes bei der Installation ausgewählt hat). Danach kann man `npm` von überall in der Console aufrufen. Die installierten Node.js und `npm` Versionen lassen sich wie folgt abfragen:
 
 ```sh
 node -v
@@ -59,8 +59,13 @@ Generell werden Module mit
 npm update <modulename>
 ```
 
-aktualisiert. Der Befehl muss im Projekt-Hauptverzeichnis ausgeführt werden. Für globale Module wird der Parameter `-g` oder `--global` benutzt. Wird der Modulename weggelassen, werden alle Module in einem Rutsch aktualisiert.
+aktualisiert. Der Befehl muss im Projekt-Hauptverzeichnis ausgeführt werden. Für globale Module wird der Parameter `-g` oder `--global` benutzt. Wird der Modulename weggelassen, werden alle Module in einem Rutsch aktualisiert. Natürlich lassen sich Module auch deinstallieren. Dafür schreibt man `uninstall` an der Stelle `install`. Z.B.
 
+```sh
+npm uninstall gulp -g
+npm uninstall webpack
+```
+  
 Wo genau werden aber die projektspezifischen Module installiert? Dazu legen wir ein leeres Projekt-Verzeichnis an und führen dort folgendes aus:
 
 ```sh
@@ -116,7 +121,7 @@ Es gibt noch eine Sektion `peerDependencies`. Dort werden alle Dependencies mit 
 }
 ```
 
-Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul hat eine Version im Format X.Y.Z (Major.Minor.Patch). Behebt der Entwickler einen Fehler, ohne die Abwärtskompatibilität zu beeinträchtigen, wird lediglich die Patchnummer um 1 erhöht. Fügt der Entwickler neue Funktionalität hinzu ohne Beeinträchtigung der Abwärtskompatibilität, wird die Minornummer um 1 erhöht. Beeinträchtigt der Entwickler die Abwärtskompatibilität, wird die Majornummer um 1 erhöht. Bei den Dependencies kann kann nicht nur exakte Versionen angeben, sondern auch Ranges und mehr. [npm semver calculator](http://semver.npmjs.com/) stellt eine gute "Spielwiese" dar, um dies auszuprobieren. Es wird schnell klar, wie man Major, Minor, Patch Versionen, Ranges oder exakte Versionen auswählen kann. Hier sind einige Beispiele:
+Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul hat eine Version im Format X.Y.Z (Major.Minor.Patch). Behebt der Entwickler einen Fehler, ohne die Abwärtskompatibilität zu beeinträchtigen, wird lediglich die Patchnummer um 1 erhöht. Fügt der Entwickler neue Funktionalität hinzu ohne Beeinträchtigung der Abwärtskompatibilität, wird die Minornummer um 1 erhöht. Beeinträchtigt der Entwickler die Abwärtskompatibilität, wird die Majornummer um 1 erhöht. Bei den Dependencies kann kann nicht nur exakte Versionen angeben, sondern auch Ranges und mehr. [npm semver calculator](http://semver.npmjs.com/) stellt eine interaktive "Spielwiese" dar, um dies auszuprobieren. Es wird schnell klar, wie man Major, Minor, Patch Versionen, Ranges oder exakte Versionen auswählen kann. Hier sind einige Beispiele:
 
 ```sh
 "dependencies": {
@@ -163,4 +168,54 @@ npm config set registry https://<whatever>/
 
 Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert. Die Datei `.npmrc` wird entweder im Projekt-Hauptverzeichnis (Konfiguration pro Projekt) oder im Benutzer-Homeverzeichnis angelegt. D.h. entweder irgendwo in `/path/to/my/project/.npmrc` oder `~/.npmrc`.
 
-Weitere nützliche `npm` Befehle
+Weitere nützliche `npm` Befehle sind `ls` und `outdated`. Mit `ls` werden alle installierten lokalen oder globalen Module aufgelistet. Man kann dazu noch das Flag `-l` für die Ausgabe der kurzen Beschreibungen nutzen. Schreibt man `--depth=0`, werden nur noch die Top-Level Module und nicht der ganze Dependency-Baum aufgelistet.
+
+```sh
+npm ls -l --depth=0
+npm ls -l --depth=0 -g
+```
+
+Die Ausgabe sieht ungefähr so aus:
+
+```sh
++-- connect@3.4.1
+|   High performance middleware framework
+|   git+https://github.com/senchalabs/connect.git
+|   https://github.com/senchalabs/connect#readme
++-- del@2.2.0
+|   Delete files/folders using globs
+|   git+https://github.com/sindresorhus/del.git
+|   https://github.com/sindresorhus/del
++-- gulp-autoprefixer@3.1.0
+|   Prefix CSS
+|   git+https://github.com/sindresorhus/gulp-autoprefixer.git
+|   https://github.com/sindresorhus/gulp-autoprefixer
++-- gulp-clean-css@2.0.7
+|   Minify css with clean-css.
+|   git+https://github.com/scniro/gulp-clean-css.git
+|   https://github.com/scniro/gulp-clean-css#readme
++-- gulp-concat@2.6.0
+|   Concatenates files
+|   git+https://github.com/wearefractal/gulp-concat.git
+|   https://github.com/wearefractal/gulp-concat#readme
+```
+
+Mit `outdated` wird geprüft welche lokale bzw. globale Module aktualisiert werden können.
+
+```sh
+npm outdated 
+npm outdated -g --depth=0
+```
+
+Die Ausgabe sieht ungefähr so aus:
+
+```sh
+Package               Current  Wanted  Latest  Location
+browser-sync           2.12.8  2.13.0  2.13.0  gulp-book
+gulp            4.0.0-alpha.2     git     git  gulp-book
+gulp-clean-css          2.0.7  2.0.10  2.0.10  gulp-book
+run-sequence            1.1.5   1.2.1   1.2.1  gulp-book
+serve-static           1.10.2  1.11.1  1.11.1  gulp-book
+```
+
+Wie schon erwähnt wurde, werden Module mit `npm update` aktualisiert.
