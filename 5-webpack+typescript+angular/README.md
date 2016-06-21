@@ -1,3 +1,3 @@
-# Projekt-Setup mit Gulp + Webpack + Typescript + AngularJS 2
+# Projekt-Setup mit Webpack + Typescript + AngularJS 2
 
 
