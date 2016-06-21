@@ -168,7 +168,7 @@ npm config set registry https://<whatever>/
 
 Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert. Die Datei `.npmrc` wird entweder im Projekt-Hauptverzeichnis (Konfiguration pro Projekt) oder im Benutzer-Homeverzeichnis angelegt. D.h. entweder irgendwo in `/path/to/my/project/.npmrc` oder `~/.npmrc`.
 
-Weitere nützliche `npm` Befehle sind `ls` und `outdated`. Mit `ls` werden alle installierten lokalen oder globalen Module aufgelistet. Man kann dazu noch das Flag `-l` für die Ausgabe der kurzen Beschreibungen nutzen. Schreibt man `--depth=0`, werden nur noch die Top-Level Module und nicht der ganze Dependency-Baum aufgelistet.
+Weitere nützliche `npm` Befehle sind `ls`, `outdated` und `link`. Mit `ls` werden alle installierten lokalen oder globalen Module aufgelistet. Man kann dazu noch das Flag `-l` für die Ausgabe der kurzen Beschreibungen nutzen. Schreibt man `--depth=0`, werden nur noch die Top-Level Module und nicht der ganze Dependency-Baum aufgelistet.
 
 ```sh
 npm ls -l --depth=0
@@ -214,4 +214,38 @@ run-sequence            1.1.5   1.2.1   1.2.1  gulp-book
 serve-static           1.10.2  1.11.1  1.11.1  gulp-book
 ```
 
-Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden.
+Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden. Last but not least ist das [Package Linking](https://docs.npmjs.com/cli/link) mittels `npm link`. Damit kann man Module verlinken. Angenommen, die Projektstruktur sieht folgendermaßen aus:
+
+```sh
+demo-project
+    demo-1
+    demo-2
+```
+
+Nun führen wir folgendes aus:
+
+```sh
+cd demo-project/demo-2
+npm link ../demo-1
+```
+
+Wenn man jetzt Änderungen im `demo-1` macht, werden sie automatisch in `demo-2/node-modules/demo-1` reflektiert. Aus dem Package `demo-2` heraus lassen sich JavaScript Dateien im `demo-1` einfach so importieren (hier als CommonJS Modul mit `require`):
+
+```sh
+var demo1 = require("demo-1/somefile");
+demo1.doSomething();
+```
+
+Alternativ geht es natürlich auch so:
+
+```sh
+var demo1 = require("./../demo-1/somefile");
+demo1.doSomething();
+```
+
+Zu beachten ist es, dass per Default die Datei-Endung `.js` angenommen wird. D.h. die folgenden Schreibweisen sind äquivalent:
+
+```sh
+require("./../demo-1/somefile");
+require("./../demo-1/somefile.js");
+```
