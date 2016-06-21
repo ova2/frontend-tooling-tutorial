@@ -218,34 +218,34 @@ Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden. L
 
 ```sh
 demo-project
-    demo-1
-    demo-2
+    module-1
+    module-2
 ```
 
 Nun führen wir folgendes aus:
 
 ```sh
-cd demo-project/demo-2
-npm link ../demo-1
+cd demo-project/module-2
+npm link ../module-1
 ```
 
-Wenn man jetzt Änderungen im `demo-1` macht, werden sie automatisch in `demo-2/node-modules/demo-1` reflektiert. Aus dem Package `demo-2` heraus lassen sich JavaScript Dateien im `demo-1` einfach so importieren (hier als CommonJS Modul mit `require`):
+Wenn man jetzt Änderungen im `module-1` macht, werden sie automatisch in `module-2/node-modules/module-1` reflektiert. Aus dem Package `module-2` heraus lassen sich JavaScript Dateien im `module-1` einfach so importieren (hier als CommonJS Modul mit `require`):
 
 ```sh
-var demo1 = require("demo-1/somefile");
-demo1.doSomething();
+var mod1 = require("module-1/somefile");
+mod1.doSomething();
 ```
 
 Alternativ geht es natürlich auch so:
 
 ```sh
-var demo1 = require("./../demo-1/somefile");
-demo1.doSomething();
+var mod1 = require("./../module-1/somefile");
+mod1.doSomething();
 ```
 
 Zu beachten ist es, dass per Default die Datei-Endung `.js` angenommen wird. D.h. die folgenden Schreibweisen sind äquivalent:
 
 ```sh
-require("./../demo-1/somefile");
-require("./../demo-1/somefile.js");
+require("./../module-1/somefile");
+require("./../module-1/somefile.js");
 ```
