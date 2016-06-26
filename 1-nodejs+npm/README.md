@@ -76,7 +76,7 @@ Wo genau werden aber die projektspezifischen Module installiert? Dazu legen wir 
 npm init
 ```
 
-Daraufhin wird eine Datei namens `package.json` angelegt. Das Erzeugen von `package.json` ist interaktiv. Es werden einige Fragen gestellt, die man beantworten muss. Man kann die Datei selbstverständlich auch nachträglich anpassen, z.B. die Tags `repository`, `keywords`, `script`, usw. hinzufügen. Eine gute Übersicht aller möglichen Einstellungen gibt es in der [offizellen Dokumentation](https://docs.npmjs.com/files/package.json). Wenn man die Applikation nicht in dem öffentlichen `npm` Repository veröffentlichen will, sollte man die Property `private` auf `true` setzen: `"private": true`. 
+Daraufhin wird eine Datei namens `package.json` angelegt. Das Erzeugen von `package.json` ist interaktiv. Es werden einige Fragen gestellt, die man beantworten muss. Man kann die Datei selbstverständlich auch nachträglich anpassen, z.B. die Angaben für `repository`, `keywords`, `script`, usw. hinzufügen. Eine gute Übersicht aller möglichen Einstellungen gibt es in der [offizellen Dokumentation](https://docs.npmjs.com/files/package.json). Wenn man die Applikation nicht in dem öffentlichen `npm` Repository veröffentlichen will, sollte man die Property `private` auf `true` setzen: `"private": true`. 
 
 Java-Entwickler können diese Datei als `pom.xml` in Maven vorstellen. Dort werden auch Projekt-Dependencies verwaltet. Es gibt zwei Arten von Dependencies:
 
@@ -138,7 +138,7 @@ Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul h
   "package5": "<1.9.0",        // eine Version kleiner als 1.9.0
   "package6": "~1.8.0",        // Shorthand für >= 1.8.0 < 1.9.0
   "package7": "^1.1.0",        // Shorthand für >=1.1.0 < 2.0.0
-  "package8": "latest",        // Tag name für die latest Version
+  "package8": "latest",        // letzte Version
   "package9": "<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0"
 }
 ```
@@ -270,7 +270,7 @@ require("./../module-1/somefile.js");
 
 ## NPM Scripts als Build-Tools
 
-Viele Aufgaben von Build-Tools wie Grunt oder Gulp können mit `npm` scripts ersetzt werden. Es handelt sich um ein Tag `scripts` in der `package.json` Datei. Alle Tools, die in `scripts` benutzt werden, müssen mit `--save-dev` installiert werden. Ein Beispiel:
+Viele Aufgaben von Build-Tools wie Grunt oder Gulp können mit `npm` scripts erledigt werden. Es handelt sich um einen Abschnitt namens `scripts` in der `package.json` Datei. Alle Tools, die in diesem Abschnitt benutzt werden, müssen mit `--save-dev` installiert werden. Ein Beispiel:
 
 ```sh
 npm install --save-dev node-sass
@@ -290,13 +290,13 @@ und führen den folgenden Befehle in der Console aus:
 npm run scss
 ```
  
-Ergebnis: die SASS Dateien aus dem Verzeichnis `src/scss` werden nach CSS kompiliert und im `dist/css` abgelegt. Wie man sieht, hat jeder Befehl im `scripts` Tag einen Namen, eine Anweisung und kann mit
+Ergebnis: die SASS Dateien aus dem Verzeichnis `src/scss` werden nach CSS kompiliert und im `dist/css` abgelegt. Wie man sieht, hat jeder Befehl im `scripts` einen Namen, eine Anweisung und kann mit
 
 ```sh
 npm run <befehlsname>
 ```
 
-ausgeführt werden. Wozu ist es gut? Damit wird eine Abstraktionsebene eingeführt, weil die Tools nicht direkt, sondern über die `scripts` Befehle angesprochen werden. Die Komplexität des Tools wird versteckt. Viele Tools verstehen auch die Datei-"globs", wie z.B. `*.js`, `*.min.css` oder `assets/*/*`. Ein Beispiel für Linting könnte so aussehen:
+ausgeführt werden. Wozu ist es gut? Damit wird eine Abstraktionsebene eingeführt, weil die Tools nicht direkt, sondern über die `scripts` Befehle angesprochen werden. Die Komplexität der Tools wird versteckt. Viele Tools verstehen auch die Datei-"globs", wie z.B. `*.js`, `*.min.css` oder `assets/*/*`. Ein Beispiel für Linting könnte so aussehen:
 
 ```sh
 "devDependencies": {
@@ -315,13 +315,13 @@ npm run lint
 
 Die folgende Syntax kann bei den `scripts` Befehlen unabhängig vom Betriebssystem verwendet werden: 
 
-* __&&__ für die sequenzielle Ausführung von Tasks (Verkettung von Tasks)
-* __&__ für die parallele (gleichzeitige) Ausführung von Tasks
-* __<__ um die Inhalte (stdin) einer Datei in einen Befehl einzufügen
-* __>__ um den Output (stdout) eines Befehls weiterzuleiten und ihn in eine Datei einzufügen
-* __|__ um den Output (stdout) eines Befehls weiterzuleiten und ihn an einen anderen Befehl zu senden
+⋅⋅⋅__&&__ für die sequenzielle Ausführung von Tasks (Verkettung von Tasks)
+⋅⋅⋅__&__ für die parallele (gleichzeitige) Ausführung von Tasks
+⋅⋅⋅__<__ um die Inhalte (stdin) einer Datei in einen Befehl einzufügen
+⋅⋅⋅__>__ um den Output (stdout) eines Befehls weiterzuleiten und ihn in eine Datei einzufügen
+⋅⋅⋅__|__ um den Output (stdout) eines Befehls weiterzuleiten und ihn an einen anderen Befehl zu senden
 
-Eine weitere Möglichkeit sind die pre- oder post-hooks. Hat z.B. ein `scripts` Befehl den Namen `build`, wird der Befehl mit dem Namen `prebuild` davor und der Befehl mit dem Namen `postbuild` danach automatisch ausgeführt. Ein Beispiel soll das veranschaulichen:
+Weitere Möglichkeiten sind die pre- und post-hooks. Hat z.B. ein `scripts` Befehl den Namen `build`, wird der Befehl mit dem Namen `prebuild` davor und der Befehl mit dem Namen `postbuild` danach automatisch ausgeführt. Ein Beispiel soll das veranschaulichen:
 
 ```sh
 "devDependencies": {
@@ -339,7 +339,7 @@ Eine weitere Möglichkeit sind die pre- oder post-hooks. Hat z.B. ein `scripts` 
 }
 ```
 
-Im Beispiel führt `npm run build` die Befehle `clean`, `build:css` und `build:js` aus. Der Befehlt `build:js` wird aber ausgeführt, bevor der `lint` Befehl abgearbeitet ist.
+Im Beispiel führt `npm run build` die Befehle `clean`, `build:css` und `build:js` aus. Der Befehl `build:js` wird aber nicht ausgeführt, bevor der `lint` Befehl abgearbeitet ist.
 
 Für die Überwachung von geänderten Dateien kann [watch](https://www.npmjs.com/package/watch) benutzt werden. Die folgende Konfiguration dient der Überwachung des ganzen Projektverzeichnisses. Ändert sich eine Datei, werden die HTML-, CSS- und JS-Assets neu gebildet. Man führt einfach `npm run build:watch` aus und fangt an zu entwickeln.
 
@@ -378,7 +378,7 @@ Die parallele Ausführung von Tasks / Prozessen in Form vom `cmd1 & cmd2 & cmd3`
 }
 ```
 
-Jetzt führt der Aufruf von `npm run build:watch` die individuellen Watcher parallel aus. Wenn man z.B. nur CSS verändert, wird nur CSS neu kompiliert. Wenn man JavaScript verändert, wird nur JavaScript neu kompiliert und so weiter.
+Jetzt führt der Aufruf von `npm run build:watch` die individuellen Watcher parallel aus. Wenn man z.B. CSS verändert, wird nur CSS neu kompiliert. Wenn man JavaScript verändert, wird nur JavaScript neu kompiliert und so weiter.
 
 Es ist auch denkbar, einen Grunt oder Gulp basierten Build mit `scripts` zu triggern.
 
