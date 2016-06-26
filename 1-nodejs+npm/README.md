@@ -318,8 +318,8 @@ Die folgende Syntax kann bei den `scripts` Befehlen unabhängig vom Betriebssyst
 * __&&__ für die sequenzielle Ausführung von Tasks (Verkettung von Tasks)
 * __&__ für die parallele (gleichzeitige) Ausführung von Tasks
 * __<__ um die Inhalte (stdin) einer Datei in einen Befehl einzufügen
-* __>__ um den Output (stdout) eines Befehls weiterzuleiten und ihn in eine Datei einzufügen
-* __|__ um den Output (stdout) eines Befehls weiterzuleiten und ihn an einen anderen Befehl zu senden
+* __>__ um die Ausgabe (stdout) eines Befehls weiterzuleiten und ihn in eine Datei einzufügen
+* __|__ um die Ausgabe (stdout) eines Befehls weiterzuleiten und ihn an einen anderen Befehl zu senden
 
 Weitere Möglichkeiten sind die pre- und post-hooks. Hat z.B. ein `scripts` Befehl den Namen `build`, wird der Befehl mit dem Namen `prebuild` davor und der Befehl mit dem Namen `postbuild` danach automatisch ausgeführt. Ein Beispiel soll das veranschaulichen:
 
