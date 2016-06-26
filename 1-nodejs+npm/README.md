@@ -174,7 +174,7 @@ npm config set registry https://<whatever>/
 
 Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert. Die Datei `.npmrc` wird entweder im Projekt-Hauptverzeichnis (Konfiguration pro Projekt) oder im Benutzer-Homeverzeichnis angelegt. D.h. entweder irgendwo in `/path/to/my/project/.npmrc` oder `~/.npmrc`.
 
-Oft wird es empfohlen, nur die Patch-Releases aktualisieren zu lassen. D.h. nur die Patch-Versionen sind variabel (beispielweise `1.0.x`). Damit werden böse Überraschungen vermieden, dass das Projekt plötzlich nicht gebaut werden kann. Das Problem liegt oft in den transitiven Abhängigkeiten. Angenommen, Ihr Modul `A` hängt vom Modul `B` ab und das Modul `B` hängt seinerseits vom Modul `C` ab. Angenommen, die Module `B` und `C` sind third-party Module, d.h. Sie haben keinen Einfluss darauf. Wird jetzt die Version des Moduls `C` geändert, kann der Build u.U. fehlschlagen, wenn sogar die Versionen der Modulen `A` und `B` nicht geändert wurden. Man kann die Gefahr eines fehlgeschlagenes Builds noch weiter minimieren, indem man [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) verwendet. Der Befehl
+Oft wird es empfohlen, nur die Patch-Releases aktualisieren zu lassen. D.h. nur die Patchnummern sind variabel (beispielweise `1.0.x`). Damit werden böse Überraschungen vermieden, dass das Projekt plötzlich nicht gebaut werden kann. Das Problem liegt oft in den transitiven Abhängigkeiten. Angenommen, Ihr Modul `A` hängt vom Modul `B` ab und das Modul `B` hängt seinerseits vom Modul `C` ab. Angenommen, die Module `B` und `C` sind third-party Module, d.h. Sie haben keinen Einfluss darauf. Wird jetzt die Version des Moduls `C` geändert, kann der Build u.U. fehlschlagen, wenn sogar die Versionen der Modulen `A` und `B` nicht geändert wurden. Man kann die Gefahr eines fehlgeschlagenes Builds noch weiter minimieren, indem man [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) verwendet. Der Befehl
 
 ```sh
 npm shrinkwrap
@@ -230,7 +230,7 @@ run-sequence            1.1.5   1.2.1   1.2.1  gulp-book
 serve-static           1.10.2  1.11.1  1.11.1  gulp-book
 ```
 
-Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden. Wenn alles getestet ist und gut läuft, können Sie entscheiden, ob die Versionen in der `package.json` aktualisiert werden müssen. Nachdem die Versionen aktualisiert wurden, kann eine neue `npm-shrinkwrap.json` mittels [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap), wie oben gezeigt, erstellt und unter Versionskontrolle gestellt werden.
+Wie schon erwähnt wurde, können outdated Module mit `npm update` aktualisiert werden. Wenn alles getestet ist und gut läuft, können Sie entscheiden, ob die Versionen in der `package.json` aktualisiert werden müssen. Nachdem die Versionen aktualisiert wurden, kann eine neue `npm-shrinkwrap.json` mit Hilfe von [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) (wie bereits gezeigt) erstellt und unter Versionskontrolle gestellt werden.
 
 An dieser Stelle ist noch das [Package Linking](https://docs.npmjs.com/cli/link) mittels `npm link` zu erwähnen. Damit lassen sich Module verlinken. Angenommen, die Projektstruktur sieht folgendermaßen aus:
 
@@ -247,7 +247,7 @@ cd demo-project/module-2
 npm link ../module-1
 ```
 
-Wenn man jetzt Änderungen im `module-1` macht, werden sie automatisch in `module-2/node-modules/module-1` reflektiert. Aus dem Package `module-2` heraus lassen sich JavaScript Dateien im `module-1` einfach so importieren (hier als CommonJS Modul mit `require`):
+Wenn man jetzt Änderungen im `module-1` macht, werden sie automatisch in `module-2/node-modules/module-1` reflektiert. Aus dem Package `module-2` heraus lassen sich JavaScript Dateien im `module-1` ganz einfach importieren (hier als CommonJS Modul mit `require`):
 
 ```sh
 var mod1 = require("module-1/somefile");
