@@ -270,3 +270,121 @@ require("./../module-1/somefile.js");
 
 ## NPM Scripts als Build-Tools
 
+Viele Aufgaben von Build-Tools wie Grunt oder Gulp können mit `npm` scripts ersetzt werden. Es handelt sich um ein Tag `scripts` in der `package.json` Datei. Alle Tools, die in `scripts` benutzt werden, müssen mit `--save-dev` installiert werden. Ein Beispiel:
+
+```sh
+npm install --save-dev node-sass
+```
+
+`node-sass` kompiliert SASS Dateien und erzeugt daraus CSS Dateien. Nun schreiben wir in der `package.json`:
+
+```sh
+"scripts": {
+  "scss": "node-sass --output-style compressed -o dist/css src/scss"
+}
+```
+
+und führen den folgenden Befehle in der Console aus:
+
+```sh
+npm run scss
+```
+ 
+Ergebnis: die SASS Dateien aus dem Verzeichnis `src/scss` werden nach CSS kompiliert und im `dist/css` abgelegt. Wie man sieht, hat jeder Befehl im `scripts` Tag einen Namen, eine Anweisung und kann mit
+
+```sh
+npm run <befehlsname>
+```
+
+ausgeführt werden. Wozu ist es gut? Damit wird eine Abstraktionsebene eingeführt, weil die Tools nicht direkt, sondern über die `scripts` Befehle angesprochen werden. Die Komplexität des Tools wird versteckt. Viele Tools verstehen auch die Datei-"globs", wie z.B. `*.js`, `*.min.css` oder `assets/*/*`. Ein Beispiel für Linting könnte so aussehen:
+
+```sh
+"devDependencies": {
+  "jshint": "latest"
+},
+"scripts": {
+  "lint": "jshint *.js"
+}
+```
+
+Benutzung in der Console:
+
+```sh
+npm run lint
+```
+
+Die folgende Syntax kann bei den `scripts` Befehlen unabhängig vom Betriebssystem verwendet werden: 
+
+* __&&__ für die sequenzielle Ausführung von Tasks (Verkettung von Tasks)
+* __&__ für die parallele (gleichzeitige) Ausführung von Tasks
+* __<__ um die Inhalte (stdin) einer Datei in einen Befehl einzufügen
+* __>__ um den Output (stdout) eines Befehls weiterzuleiten und ihn in eine Datei einzufügen
+* __|__ um den Output (stdout) eines Befehls weiterzuleiten und ihn an einen anderen Befehl zu senden
+
+Eine weitere Möglichkeit sind die pre- oder post-hooks. Hat z.B. ein `scripts` Befehl den Namen `build`, wird der Befehl mit dem Namen `prebuild` davor und der Befehl mit dem Namen `postbuild` danach automatisch ausgeführt. Ein Beispiel soll das veranschaulichen:
+
+```sh
+"devDependencies": {
+  "jshint": "latest",
+  "stylus": "latest",
+  "browserify": "latest"
+},
+"scripts": {
+  "clean": "rimraf dist",
+  "lint": "jshint **",
+  "build:css": "stylus assets/styles/main.styl > dist/main.css",
+  "build:js": "browserify assets/scripts/main.js > dist/main.js",
+  "build": "npm run clean && npm run build:css && npm run build:js",
+  "prebuild:js": "npm run lint"
+}
+```
+
+Im Beispiel führt `npm run build` die Befehle `clean`, `build:css` und `build:js` aus. Der Befehlt `build:js` wird aber ausgeführt, bevor der `lint` Befehl abgearbeitet ist.
+
+Für die Überwachung von geänderten Dateien kann [watch](https://www.npmjs.com/package/watch) benutzt werden. Die folgende Konfiguration dient der Überwachung des ganzen Projektverzeichnisses. Ändert sich eine Datei, werden die HTML-, CSS- und JS-Assets neu gebildet. Man führt einfach `npm run build:watch` aus und fangt an zu entwickeln.
+
+```sh
+"devDependencies": {
+  "stylus": "latest",
+  "jade": "latest",
+  "browserify": "latest",
+  "watch": "latest",
+},
+"scripts": {
+  "build:js": "browserify assets/scripts/main.js > dist/main.js",
+  "build:css": "stylus assets/styles/main.styl > dist/main.css",
+  "build:html": "jade assets/html/index.jade > dist/index.html",
+  "build": "npm run build:js && npm run build:css && npm run build:html",
+  "build:watch": "watch 'npm run build' .",
+}
+```
+
+Die parallele Ausführung von Tasks / Prozessen in Form vom `cmd1 & cmd2 & cmd3` hat mehrere Nachteile. Für diese Aufgabe kann am besten [Parallelshell](https://www.npmjs.com/package/parallelshell) benutzt werden. Die Nachteile von `cmd1 & cmd2 & cmd3` werden auf der Homepage von [Parallelshell](https://www.npmjs.com/package/parallelshell) aufgezeigt.
+
+```sh
+"devDependencies": {
+  ...
+  "parallelshell": "latest"
+},
+"scripts": {
+  "build:js": "browserify assets/scripts/main.js > dist/main.js",
+  "watch:js": "watch 'npm run build:js' assets/scripts/",
+  "build:css": "stylus assets/styles/main.styl > dist/main.css",
+  "watch:css": "watch 'npm run build:css' assets/styles/",
+  "build:html": "jade index.jade > dist/index.html",
+  "watch:html": "watch 'npm run build:html' assets/html",
+  "build": "npm run build:js && npm run build:css && npm run build:html",
+  "build:watch": "parallelshell 'npm run watch:js' 'npm run watch:css' 'npm run watch:html'",
+}
+```
+
+Jetzt führt der Aufruf von `npm run build:watch` die individuellen Watcher parallel aus. Wenn man z.B. nur CSS verändert, wird nur CSS neu kompiliert. Wenn man JavaScript verändert, wird nur JavaScript neu kompiliert und so weiter.
+
+Es ist auch denkbar, einen Grunt oder Gulp basierten Build mit `scripts` zu triggern.
+
+```sh
+"scripts": {
+  "build:prod": "gulp build --prod",
+  "build:dev": "gulp build"
+}
+```
