@@ -1,6 +1,8 @@
 # Umgang mit Node.js + NPM
 
-[Node.js](https://nodejs.org) ist eine server-seitige Plattform und die Laufzeitumgebung für JavaScript. Damit kann der server-seitige JavaScript Code ausgeführt werden. Für die Installation wird eine Long Term Support (LTS) Version empfohlen, aber es kann auch [jede beliebige releaste Version](https://nodejs.org/en/blog/release/) heruntergeladen und installiert werden.
+## Grundwissen
+
+[Node.js](https://nodejs.org) ist eine server-seitige Plattform und die Laufzeitumgebung für JavaScript. Damit kann der server-seitige JavaScript Code ausgeführt werden. Für die Installation wird eine Long Term Support (LTS) Version empfohlen, aber es kann auch [jede beliebige releaste Version](https://nodejs.org/en/blog/release/) installiert werden.
 
 Mit Node.js wird auch Node Package Manager (Paketmanager) `npm` automatisch installiert. Mit dem Paketmanager lassen sich Node.js Module (noch Packages genannt) aus einem `npm` Registry installieren. Der Pfad zu Node.js und `npm` wird zur Umgebungsvariable `PATH` hinzugefügt (normalerweise automatisch, falls man nichts anderes bei der Installation ausgewählt hat). Danach kann man `npm` von überall in der Console aufrufen. Die installierten Node.js und `npm` Versionen lassen sich wie folgt abfragen:
 
@@ -65,6 +67,8 @@ aktualisiert. Der Befehl muss im Projekt-Hauptverzeichnis ausgeführt werden. F�
 npm uninstall gulp -g
 npm uninstall webpack
 ```
+
+## Datei package.json und Projektabhängigkeiten
   
 Wo genau werden aber die projektspezifischen Module installiert? Dazu legen wir ein leeres Projekt-Verzeichnis an und führen dort folgendes aus:
 
@@ -121,12 +125,14 @@ Es gibt noch eine Sektion `peerDependencies`. Dort werden alle Dependencies mit 
 }
 ```
 
+## Semantische Versionierung mit Best Practice
+
 Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul hat eine Version im Format X.Y.Z (Major.Minor.Patch). Behebt der Entwickler einen Fehler, ohne die Abwärtskompatibilität zu beeinträchtigen, wird lediglich die Patchnummer um 1 erhöht. Fügt der Entwickler neue Funktionalität hinzu ohne Beeinträchtigung der Abwärtskompatibilität, wird die Minornummer um 1 erhöht. Beeinträchtigt der Entwickler die Abwärtskompatibilität, wird die Majornummer um 1 erhöht. Bei den Dependencies kann kann nicht nur exakte Versionen angeben, sondern auch Ranges und mehr. [npm semver calculator](http://semver.npmjs.com/) stellt eine interaktive "Spielwiese" dar, um dies auszuprobieren. Es wird schnell klar, wie man Major, Minor, Patch Versionen, Ranges oder exakte Versionen auswählen kann. Hier sind einige Beispiele:
 
 ```sh
 "dependencies": {
   "package1": "1.0.0",         // exakte 1.0.0 Version
-  "package2": "1.0.x",         // nur die Patch-Releases in Version 1.0 (meist empfohlen)
+  "package2": "1.0.x",         // nur die Patch-Releases in Version 1.0
   "package3": "*",             // letzte Version (nicht empfohlen)
   "package4": ">=1.0.0",       // beliebige Änderungen nach 1.0.0
   "package5": "<1.9.0",        // eine Version kleiner als 1.9.0
@@ -167,6 +173,16 @@ npm config set registry https://<whatever>/
 ```
 
 Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert. Die Datei `.npmrc` wird entweder im Projekt-Hauptverzeichnis (Konfiguration pro Projekt) oder im Benutzer-Homeverzeichnis angelegt. D.h. entweder irgendwo in `/path/to/my/project/.npmrc` oder `~/.npmrc`.
+
+Oft wird es empfohlen, nur die Patch-Releases aktualisieren zu lassen. D.h. nur die Patch-Versionen sind variabel (beispielweise `1.0.x`). Damit werden böse Überraschungen vermieden, dass das Projekt plötzlich nicht gebaut werden kann. Das Problem liegt oft in den transitiven Abhängigkeiten. Angenommen, Ihr Modul `A` hängt vom Modul `B` ab und das Modul `B` hängt seinerseits vom Modul `C` ab. Angenommen, die Module `B` und `C` sind third-party Module, d.h. Sie haben keinen Einfluss darauf. Wird jetzt die Version des Moduls `C` geändert, kann der Build u.U. fehlschlagen, wenn sogar die Versionen der Modulen `A` und `B` nicht geändert wurden. Man kann die Gefahr eines fehlgeschlagenes Builds noch weiter minimieren, indem man [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) verwendet. Der Befehl
+
+```sh
+npm shrinkwrap
+```
+
+erlaubt die Versionen aller im Projekt benutzen Modulen mit ihren Abhängigkeiten unter `node_modules` "einzufrieren". Damit werden die Versionsänderungen sozusagen "gesperrt". Wie funktioniert das? Der Befehl `npm shrinkwrap` erzeugt die Datei `npm-shrinkwrap.json`, in der die exakten Versionen aller fürs Projekt installierten Modulen mit ihren Abhängigkeiten aufgelistet sind. Die Datei `npm-shrinkwrap.json` wird unter Versionskontrolle gestellt. Nun bekommen alle Teamkollegen genau die gleichen exakten Versionen aller Modulen mit ihren Abhängigkeiten, nachdem sie `npm install` ausgeführt haben.
+
+## Nützliche NPM-Befehle
 
 Weitere nützliche `npm` Befehle sind `ls`, `outdated` und `link`. Mit `ls` werden alle installierten lokalen oder globalen Module aufgelistet. Man kann dazu noch das Flag `-l` für die Ausgabe der kurzen Beschreibungen nutzen. Schreibt man `--depth=0`, werden nur noch die Top-Level Module und nicht der ganze Dependency-Baum aufgelistet.
 
@@ -214,7 +230,9 @@ run-sequence            1.1.5   1.2.1   1.2.1  gulp-book
 serve-static           1.10.2  1.11.1  1.11.1  gulp-book
 ```
 
-Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden. Last but not least ist das [Package Linking](https://docs.npmjs.com/cli/link) mittels `npm link`. Damit kann man Module verlinken. Angenommen, die Projektstruktur sieht folgendermaßen aus:
+Wie schon erwähnt wurde, können Module mit `npm update` aktualisiert werden. Wenn alles getestet ist und gut läuft, können Sie entscheiden, ob die Versionen in der `package.json` aktualisiert werden müssen. Nachdem die Versionen aktualisiert wurden, kann eine neue `npm-shrinkwrap.json` mittels [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap), wie oben gezeigt, erstellt und unter Versionskontrolle gestellt werden.
+
+An dieser Stelle ist noch das [Package Linking](https://docs.npmjs.com/cli/link) mittels `npm link` zu erwähnen. Damit lassen sich Module verlinken. Angenommen, die Projektstruktur sieht folgendermaßen aus:
 
 ```sh
 demo-project
@@ -249,3 +267,6 @@ Zu beachten ist es, dass per Default die Datei-Endung `.js` angenommen wird. D.h
 require("./../module-1/somefile");
 require("./../module-1/somefile.js");
 ```
+
+## NPM Scripts als Build-Tools
+
