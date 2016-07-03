@@ -21,7 +21,7 @@ var beeper = require('beeper');
 var config = {
     path: {
         scss: 'app/css/*.scss',
-        js: 'app/js/main.ts',
+        js: 'app/js/*.ts',
         img: 'app/img/*'
     },
     prod: !!util.env.production
@@ -57,7 +57,7 @@ gulp.task('scripts', function () {
     return browserify({
         basedir: '.',
         debug: true,
-        entries: [config.path.js],
+        entries: ['app/js/main.ts'],
         cache: {},
         packageCache: {}
     })
@@ -85,16 +85,17 @@ gulp.task('watch', function () {
     gulp.watch(config.path.scss, gulp.series('sass'));
     gulp.watch(config.path.js, gulp.series('scripts'));
     gulp.watch(config.path.img, gulp.series('images'));
-    gulp.watch(['index.html', 'dist/**/*'], browsersync.reload);
+    gulp.watch('index.html').on('change', browsersync.reload);
+    gulp.watch('dist/**/*').on('change', browsersync.reload);
 });
 
 // Configuration for Dev. Server
-gulp.task('browser-sync', function (cb) {
-    return browsersync({
+gulp.task('browser-sync', function () {
+    browsersync.init({
         server: {
             baseDir: './'
         }
-    }, cb);
+    });    
 });
 
 // Task for development
