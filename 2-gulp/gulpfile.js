@@ -69,24 +69,29 @@ gulp.task('images', function () {
 });
 
 // Watch files for changes
-// gulp.task('watch', function () {
-//     gulp.watch(config.path.scss, gulp.series('sass'));
-//     gulp.watch(config.path.js, gulp.series('scripts'));
-//     gulp.watch(config.path.img, gulp.series('images'));
-//     gulp.watch(['index.html', 'dist/**/*'], browsersync.reload);
-// });
+gulp.task('watch', function () {
+    gulp.watch(config.path.scss, gulp.series('sass'));
+    gulp.watch(config.path.js, gulp.series('scripts'));
+    gulp.watch(config.path.img, gulp.series('images'));
+    gulp.watch(['index.html', 'dist/**/*'], browsersync.reload);
+});
 
-// gulp.task('browser-sync', function(cb) {
-//     return browsersync({
-//         server: {
-//             baseDir: './'
-//         }
-//     }, cb);
-// });
+// Configuration for Dev. Server
+gulp.task('browser-sync', function (cb) {
+    return browsersync({
+        server: {
+            baseDir: './'
+        }
+    }, cb);
+});
 
-gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images'), config.prod ? gulp.parallel('browser-sync', 'watch') : util.noop());
+// Task for development
+gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
+
+// Build task
+gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images'));
 
 // Default task
-//gulp.task('default', gulp.series('clean', 'sass', 'scripts', gulp.parallel('images', 'browser-sync', 'watch')));
+gulp.task('default', gulp.series('build'));
 
 

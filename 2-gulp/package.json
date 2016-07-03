@@ -34,7 +34,7 @@
     "build:css": "gulp sass",
     "build:js": "gulp scripts",
     "build:img": "gulp images",
-    "build:dev": "gulp build",
+    "build:dev": "gulp build && gulp serve",
     "build:prod": "gulp build --production"
   }
 }
