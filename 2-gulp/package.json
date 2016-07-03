@@ -10,6 +10,7 @@
     "beeper": "^1.1.0",
     "browser-sync": "^2.12.8",
     "browserify": "^13.0.1",
+    "chai": "^3.5.0",
     "del": "^2.2.0",
     "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
     "gulp-autoprefixer": "^3.1.0",
@@ -24,6 +25,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
+    "jsdom": "^9.4.0",
     "mocha": "^2.5.3",
     "tsify": "^0.16.0",
     "typescript": "^1.8.10",
@@ -40,6 +42,8 @@
     "build:js": "gulp scripts",
     "build:img": "gulp images",
     "build:dev": "gulp build && gulp serve",
-    "build:prod": "gulp build --production"
+    "build:prod": "gulp build --production",
+    "pretest": "mocha -r test/setup.js",
+    "test": "mocha test --recursive"
   }
 }

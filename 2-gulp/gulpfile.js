@@ -22,7 +22,8 @@ var config = {
     path: {
         scss: 'app/css/*.scss',
         js: 'app/js/*.ts',
-        img: 'app/img/*'
+        img: 'app/img/*',
+        html: './index.html'
     },
     prod: !!util.env.production
 };
@@ -80,12 +81,18 @@ gulp.task('images', function () {
     .pipe(gulp.dest('dist/img'));
 });
 
+// Copy HTML
+gulp.task('copyHtml', function () {
+    return gulp.src(config.path.html)
+    .pipe(gulp.dest('dist/'));
+});
+
 // Watch files for changes
 gulp.task('watch', function () {
     gulp.watch(config.path.scss, gulp.series('sass'));
     gulp.watch(config.path.js, gulp.series('scripts'));
     gulp.watch(config.path.img, gulp.series('images'));
-    gulp.watch('index.html').on('change', browsersync.reload);
+    gulp.watch(config.path.html, gulp.series('copyHtml'));
     gulp.watch('dist/**/*').on('change', browsersync.reload);
 });
 
@@ -93,7 +100,7 @@ gulp.task('watch', function () {
 gulp.task('browser-sync', function () {
     browsersync.init({
         server: {
-            baseDir: './'
+            baseDir: './dist/'
         }
     });    
 });
@@ -102,7 +109,7 @@ gulp.task('browser-sync', function () {
 gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
 
 // Build task
-gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images'));
+gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images', 'copyHtml'));
 
 // Default task
 gulp.task('default', gulp.series('build'));
