@@ -1,0 +1,40 @@
+@import "_variables";
+@import "_mixins";
+
+.container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: $brand-color-background;
+
+  .box {
+    @include center(both);
+    height: 80%;
+    width: 50%;
+    background: white;
+
+    .content {
+      @include center(both);
+      color: $brand-color-lighter;
+      font-family: $font-family;
+      text-align: left;
+      font-weight: bold;
+      font-size: $primary-font-size;
+      padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      
+      h1 {
+        text-align: center;
+        color: $brand-color-content;
+      }
+
+      .gulp-logo {
+        text-align: center;
+        width: 125px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}
