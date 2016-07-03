@@ -8,4 +8,5 @@ target
 
 target/
 node_modules/
+typings/
 dist/

@@ -3,7 +3,6 @@ var gulp = require('gulp');
 var util = require('gulp-util');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
 var sass = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
@@ -12,13 +11,20 @@ var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var del = require('del');
 var printSpaceSavings = require('gulp-print-spacesavings');
+var browserify = require("browserify");
+var source = require('vinyl-source-stream');
+var tsify = require("tsify");
+var buffer = require('vinyl-buffer');
 var browsersync = require('browser-sync');
 var beeper = require('beeper');
 
 var config = {
     path: {
-        scss: 'app/css/*.scss', js: 'app/js/*.js', img: 'app/img/*'
-    }, prod: !!util.env.production
+        scss: 'app/css/*.scss',
+        js: 'app/js/main.ts',
+        img: 'app/img/*'
+    },
+    prod: !!util.env.production
 };
 
 // Error Helper
@@ -46,14 +52,20 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('dist/'));
 });
 
-// Process scripts
+// Process TypeScripts files
 gulp.task('scripts', function () {
-    return gulp.src(config.path.js, {since: gulp.lastRun('scripts')})
-    .pipe(plumber({errorHandler: onError}))
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(sourcemaps.init())
-    .pipe(concat('bundle.js'))
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: [config.path.js],
+        cache: {},
+        packageCache: {}
+    })
+    .plugin(tsify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(config.prod ? printSpaceSavings.init() : util.noop())
     .pipe(config.prod ? uglify() : util.noop())
     .pipe(config.prod ? printSpaceSavings.print() : util.noop())

@@ -17,20 +17,22 @@
       @include center(both);
       color: $brand-color-lighter;
       font-family: $font-family;
-      text-align: left;
+      text-align: center;
       font-weight: bold;
       font-size: $primary-font-size;
       padding: 20px;
       width: 100%;
       box-sizing: border-box;
-      
+
       h1 {
-        text-align: center;
         color: $brand-color-content;
+      }
+      
+      .greeting {
+        margin-top: 40px;
       }
 
       .gulp-logo {
-        text-align: center;
         width: 125px;
         margin: 0 auto;
         display: block;

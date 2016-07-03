@@ -9,6 +9,7 @@
   "devDependencies": {
     "beeper": "^1.1.0",
     "browser-sync": "^2.12.8",
+    "browserify": "^13.0.1",
     "del": "^2.2.0",
     "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
     "gulp-autoprefixer": "^3.1.0",
@@ -23,13 +24,17 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
-    "jshint": "^2.9.2",
-    "jshint-stylish": "^2.2.0"
+    "mocha": "^2.5.3",
+    "tsify": "^0.16.0",
+    "typescript": "^1.8.10",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "normalize.css": "^4.2.0"
   },
   "scripts": {
+    "postinstall": "typings install",
     "clean": "gulp clean",
     "build:css": "gulp sass",
     "build:js": "gulp scripts",
