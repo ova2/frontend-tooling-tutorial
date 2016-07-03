@@ -1,3 +1,3 @@
-# Projekt-Setup mit Gulp und TypeScript
+# Projekt-Setup mit Gulp
 
 

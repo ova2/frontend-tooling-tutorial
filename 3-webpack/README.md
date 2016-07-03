@@ -1,3 +1,3 @@
-# Projekt-Setup mit Webpack und TypeScript
+# Projekt-Setup mit Webpack
 
 
