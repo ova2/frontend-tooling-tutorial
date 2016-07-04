@@ -4,13 +4,15 @@
     "moduleResolution": "node",
     "target": "es5",
     "noImplicitAny": true,
+    "declaration": true,
     "sourceMap": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
   "exclude": [
     "node_modules",
-    "typings/browser",
-    "typings/browser.d.ts"
+    "typings/main",
+    "typings/main.d.ts",
+    "typings/globals/jsdom/index.d.ts"
   ]
 }

@@ -1,8 +1,19 @@
-import {sayHello} from "./greeting";
+import {Greeting} from "./greeting";
 
-function showHello(selector:string, name:string) {
-    const el = <HTMLElement>document.querySelectorAll(selector)[0];
-    el.innerText = sayHello(name);
+export class Application {
+
+    private selector:string;
+
+    constructor(selector:string) {
+        this.selector = selector;
+    }
+
+    public showHello(text:string) {
+        // cast generic Element to HTMLElement because the result can be SVGElement too
+        const el = <HTMLElement>document.querySelectorAll(this.selector)[0];
+        el.innerText = Greeting.sayHello(text);
+    }
 }
 
-showHello(".greeting", "TypeScript!");
+let app = new Application('.greeting');
+app.showHello('TypeScript!');

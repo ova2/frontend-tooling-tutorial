@@ -16,6 +16,8 @@ var source = require('vinyl-source-stream');
 var tsify = require("tsify");
 var buffer = require('vinyl-buffer');
 var browsersync = require('browser-sync');
+var ts = require('gulp-typescript');
+var mocha = require('gulp-mocha');
 var beeper = require('beeper');
 
 var config = {
@@ -105,11 +107,34 @@ gulp.task('browser-sync', function () {
     });    
 });
 
+// Clean transpiled test files
+gulp.task('clean-test', function () {
+    return del(['test/**/*.js']);
+});
+
+// Task to run tests with mocha runner
+var tsProject = ts.createProject('./tsconfig.json');
+gulp.task('run-test', function() {
+    // find test code first
+    return gulp.src('./test/**/*.ts', {base: '.'})
+    // transpile
+    .pipe(ts(tsProject))
+    // flush to disk
+    .pipe(gulp.dest('.'))
+    // execute tests
+    .pipe(mocha({
+        reporter: 'spec'
+    }));
+});
+
+// Test task
+gulp.task('test', gulp.series('clean-test', 'run-test'));
+
 // Task for development
 gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
 
 // Build task
-gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images', 'copyHtml'));
+gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images', 'copyHtml', 'test'));
 
 // Default task
 gulp.task('default', gulp.series('build'));
