@@ -42,7 +42,7 @@ gulp.task('clean', function () {
 
 // Process SASS files
 gulp.task('sass', function () {
-    return gulp.src(config.path.scss, {since: gulp.lastRun('sass')})
+    return gulp.src('app/css/entry.scss', {since: gulp.lastRun('sass')})
     .pipe(plumber({errorHandler: onError}))
     .pipe(concat('bundle.css'))
     .pipe(sass({
@@ -108,12 +108,27 @@ gulp.task('browser-sync', function () {
 });
 
 // Clean transpiled test files
-gulp.task('clean-test', function () {
+gulp.task('preclean-test', function () {
     return del(['test/**/*.js']);
 });
 
-// Task to run tests with mocha runner
+// Clean transpiled application files
+gulp.task('postclean-test', function () {
+    return del(['app/js/**/*.js']);
+});
+
+// Process TypeScripts files for tests
 var tsProject = ts.createProject('./tsconfig.json');
+gulp.task('scripts-test', function () {
+    // find application code first
+    return gulp.src(config.path.js)
+    // transpile
+    .pipe(ts(tsProject))
+    // flush to disk
+    .pipe(gulp.dest('.'));
+});
+
+// Task to run tests with mocha runner
 gulp.task('run-test', function() {
     // find test code first
     return gulp.src('./test/**/*.ts', {base: '.'})
@@ -128,13 +143,13 @@ gulp.task('run-test', function() {
 });
 
 // Test task
-gulp.task('test', gulp.series('clean-test', 'run-test'));
+gulp.task('test', gulp.series('preclean-test', 'scripts-test', 'run-test', 'postclean-test'));
 
 // Task for development
 gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
 
 // Build task
-gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images', 'copyHtml', 'test'));
+gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images', 'copyHtml'));
 
 // Default task
 gulp.task('default', gulp.series('build'));

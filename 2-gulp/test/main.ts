@@ -1,7 +1,9 @@
 /// <reference path="../typings/globals/mocha/index.d.ts" />
+/// <reference path="../typings/globals/jquery/index.d.ts" />
 /// <reference path="../typings/globals/jsdom/index.d.ts" />
 /// <reference path="../typings/globals/chai/index.d.ts" />
 /// <reference path="../typings/globals/node/index.d.ts" />
+
 import {env, Callback} from "jsdom";
 import {expect} from "chai";
 import * as fs from "fs";
