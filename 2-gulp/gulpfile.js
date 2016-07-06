@@ -22,9 +22,10 @@ var beeper = require('beeper');
 
 var config = {
     path: {
-        scss: 'app/css/*.scss',
-        js: 'app/js/*.ts',
-        img: 'app/img/*',
+        scss: 'app/css/**/*.scss',
+        jsall: 'app/js/**/*.ts',
+        jswatch: ['app/js/**/*.ts', '!app/js/**/*.spec.ts'],
+        img: 'app/img/**/*',
         html: './index.html'
     },
     prod: !!util.env.production
@@ -92,7 +93,7 @@ gulp.task('copyHtml', function () {
 // Watch files for changes
 gulp.task('watch', function () {
     gulp.watch(config.path.scss, gulp.series('sass'));
-    gulp.watch(config.path.js, gulp.series('scripts'));
+    gulp.watch(config.path.jswatch, gulp.series('scripts'));
     gulp.watch(config.path.img, gulp.series('images'));
     gulp.watch(config.path.html, gulp.series('copyHtml'));
     gulp.watch('dist/**/*').on('change', browsersync.reload);
@@ -108,42 +109,28 @@ gulp.task('browser-sync', function () {
 });
 
 // Clean transpiled test files
-gulp.task('preclean-test', function () {
-    return del(['test/**/*.js']);
+gulp.task('clean-test', function () {
+    return del(['test/*']);
 });
 
-// Clean transpiled application files
-gulp.task('postclean-test', function () {
-    return del(['app/js/**/*.js']);
-});
-
-// Process TypeScripts files for tests
 var tsProject = ts.createProject('./tsconfig.json');
-gulp.task('scripts-test', function () {
-    // find application code first
-    return gulp.src(config.path.js)
-    // transpile
-    .pipe(ts(tsProject))
-    // flush to disk
-    .pipe(gulp.dest('.'));
-});
-
 // Task to run tests with mocha runner
 gulp.task('run-test', function() {
-    // find test code first
-    return gulp.src('./test/**/*.ts', {base: '.'})
+    // find all TypeScript files first
+    return gulp.src(config.path.jsall, {base: './app/'})
     // transpile
     .pipe(ts(tsProject))
     // flush to disk
-    .pipe(gulp.dest('.'))
+    .pipe(gulp.dest('test/'))
     // execute tests
     .pipe(mocha({
+        grep: '\.spec\.js$',
         reporter: 'spec'
     }));
 });
 
 // Test task
-gulp.task('test', gulp.series('preclean-test', 'scripts-test', 'run-test', 'postclean-test'));
+gulp.task('test', gulp.series('clean-test', 'run-test'));
 
 // Task for development
 gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
