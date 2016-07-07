@@ -1,6 +1,6 @@
-import {Greeting} from "./greeting";
+import Greeting from "../greeting/greeting";
 
-export class Application {
+export default class Application {
 
     private selector:string;
 
@@ -14,6 +14,3 @@ export class Application {
         el.innerText = Greeting.sayHello(text);
     }
 }
-
-let app = new Application('.greeting');
-app.showHello('TypeScript!');

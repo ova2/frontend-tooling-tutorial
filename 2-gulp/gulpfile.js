@@ -60,7 +60,7 @@ gulp.task('scripts', function () {
     return browserify({
         basedir: '.',
         debug: true,
-        entries: ['app/js/main.ts'],
+        entries: ['app/js/bootstrap.ts'],
         cache: {},
         packageCache: {}
     })
