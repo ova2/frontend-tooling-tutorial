@@ -10,8 +10,6 @@ declare function require(moduleName:string):any;
 describe('Application tests', function () {
     let app:Application;
     let cleanup:Function;
-    let nodeList:Array<HTMLElement>;
-    let node:HTMLElement;
 
     beforeEach(function () {
         // setup the simplest document and window
@@ -22,11 +20,11 @@ describe('Application tests', function () {
         cleanup();
     });
 
-    it('check existing innerHTML', (done) => {
+    it('greeting should be present in the DOM for valid selector', (done) => {
         // setup mocks
-        node = require("jsdom/lib/jsdom/living/generated/HTMLElement");
-        nodeList = [node];
-        
+        let node:any = {};
+        let nodeList:[any] = [node];
+
         sinon.stub(document, 'querySelectorAll').withArgs('.greeting').returns(nodeList);
 
         // execute logic
@@ -34,9 +32,8 @@ describe('Application tests', function () {
         app.showHello('TypeScript!');
 
         // verify
-        //const el = <HTMLElement>document.querySelectorAll('.greeting')[0];
         expect(node.innerText).to.be.eq(Greeting.sayHello('TypeScript!'));
 
         done();
-    })
+    });
 });
