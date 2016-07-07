@@ -44,7 +44,7 @@
     "build:js": "gulp scripts",
     "build:img": "gulp images",
     "build:dev": "gulp build && gulp serve",
-    "build:prod": "gulp build --production && gulp test",
+    "build:prod": "gulp build --production && npm run test",
     "test": "gulp prepare-test && mocha --reporter spec test/**/*.spec.js"
   }
 }
