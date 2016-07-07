@@ -1,6 +1,6 @@
-# Projekt-Setup mit Gulp
+# Projekt-Setup with Gulp
 
-Mini TypeScript project mit Gulp, SASS, Browserify, Browsersync, Mocha, Chai.
+## Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai and Sinon.
 
 ## Install
 
@@ -10,7 +10,7 @@ First, install [typings](https://github.com/typings/typings) if you don't have i
 npm install typings -g
 ```
 
-Second, clone and install project as
+Second, clone and install project by typing
 
 ```sh
 npm install
