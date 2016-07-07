@@ -1,6 +1,6 @@
 # Projekt-Setup with Gulp
 
-## Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai and Sinon.
+Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai and Sinon.
 
 ## Install
 
