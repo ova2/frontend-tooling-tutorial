@@ -9,8 +9,13 @@ export default class Application {
     }
 
     public showHello(text:string) {
-        // cast generic Element to HTMLElement because the result can be SVGElement too
-        const el = <HTMLElement>document.querySelectorAll(this.selector)[0];
-        el.innerText = Greeting.sayHello(text);
+        // cast generic Element to HTMLElement because the result can be SVGElement, etc. too
+        let nodeList = document.querySelectorAll(this.selector);
+        if (nodeList && nodeList.length > 0) {
+            const el = <HTMLElement>nodeList[0];
+            if (el) {
+                el.innerText = Greeting.sayHello(text);
+            }
+        }
     }
 }
