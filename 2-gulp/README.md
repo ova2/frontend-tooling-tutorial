@@ -1,10 +1,22 @@
 # Projekt-Setup mit Gulp
 
-Mini TypeScript project mit Gulp, SASS, Browserify, Browsersync, Mocha, Chai. Clone and install project as
+Mini TypeScript project mit Gulp, SASS, Browserify, Browsersync, Mocha, Chai.
+
+## Install
+
+First, install [typings](https://github.com/typings/typings) if you don't have it yet.
+
+```sh
+npm install typings -g
+```
+
+Second, clone and install project as
 
 ```sh
 npm install
 ```
+
+## Commands
 
 After that you can build the project and start a default browser automatically by
 
@@ -19,5 +31,3 @@ For tests run
 ```sh
 npm run test
 ```
-
-

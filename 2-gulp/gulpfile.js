@@ -17,7 +17,6 @@ var tsify = require("tsify");
 var buffer = require('vinyl-buffer');
 var browsersync = require('browser-sync');
 var ts = require('gulp-typescript');
-var mocha = require('gulp-mocha');
 var beeper = require('beeper');
 
 var config = {
@@ -114,23 +113,18 @@ gulp.task('clean-test', function () {
 });
 
 var tsProject = ts.createProject('./tsconfig.json');
-// Task to run tests with mocha runner
-gulp.task('run-test', function() {
+// Task to prepare tests for mocha runner
+gulp.task('scripts-test', function() {
     // find all TypeScript files first
     return gulp.src(config.path.jsall, {base: './app/'})
     // transpile
     .pipe(ts(tsProject))
     // flush to disk
-    .pipe(gulp.dest('test/'))
-    // execute tests
-    .pipe(mocha({
-        grep: '\.spec\.js$',
-        reporter: 'spec'
-    }));
+    .pipe(gulp.dest('test/'));
 });
 
 // Test task
-gulp.task('test', gulp.series('clean-test', 'run-test'));
+gulp.task('prepare-test', gulp.series('clean-test', 'scripts-test'));
 
 // Task for development
 gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
