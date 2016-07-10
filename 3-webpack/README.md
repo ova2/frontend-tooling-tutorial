@@ -1,3 +1,0 @@
-# Projekt-Setup with Webpack
-
-
