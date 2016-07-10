@@ -1,6 +1,6 @@
-## Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai, Sinon and TSLint.
+#### Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai, Sinon and TSLint.
 
-## Install
+### Install
 
 First, install [typings](https://github.com/typings/typings) if you don't have it yet.
 
@@ -14,7 +14,7 @@ Second, clone and install project by typing
 npm install
 ```
 
-## Commands
+### Commands
 
 After that you can build the project for development with
 
