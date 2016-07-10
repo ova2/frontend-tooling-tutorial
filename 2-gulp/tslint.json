@@ -1,6 +1,30 @@
 {
   "extends": "tslint:recommended",
-  "rulesDirectory": [],
+  "rulesDirectory": [
+    "node_modules/tslint-eslint-rules/dist/rules"
+  ],
   "rules": {
+    "array-bracket-spacing": [
+      true,
+      "never"
+    ],
+    "brace-style": [
+      true,
+      "1tbs"
+    ],
+    "no-duplicate-case": true,
+    "no-extra-boolean-cast": true,
+    "no-extra-semi": true,
+    "no-inner-declarations": [
+      true,
+      "functions"
+    ],
+    "no-invalid-regexp": true,
+    "no-irregular-whitespace": true,
+    "no-regex-spaces": true,
+    "no-sparse-arrays": true,
+    "no-unexpected-multiline": true,
+    "use-isnan": true,
+    "valid-typeof": true
   }
 }

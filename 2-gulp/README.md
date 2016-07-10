@@ -1,6 +1,6 @@
 # Projekt-Setup with Gulp
 
-Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai and Sinon.
+Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai, Sinon and TSLint.
 
 ## Install
 
@@ -30,6 +30,12 @@ The following command builds the project for production. The delivered project c
 
 ```sh
 npm run build:prod
+```
+
+The linting of TypeScript files occurs during the build, but you can run the linting process separate as well:
+
+```sh
+npm run lint
 ```
 
 Use this command to run tests with Mocha runner:

@@ -17,6 +17,8 @@ var tsify = require("tsify");
 var buffer = require('vinyl-buffer');
 var browsersync = require('browser-sync');
 var ts = require('gulp-typescript');
+var tslint = require('gulp-tslint');
+var tsstylish = require('gulp-tslint-stylish');
 var beeper = require('beeper');
 
 var config = {
@@ -53,6 +55,18 @@ gulp.task('sass', function () {
     .pipe(config.prod ? cleanCSS() : util.noop())
     .pipe(config.prod ? printSpaceSavings.print() : util.noop())
     .pipe(gulp.dest('dist/'));
+});
+
+// Linting TypeScript files
+gulp.task('tslint', function () {
+    return gulp.src(config.path.jsall, {since: gulp.lastRun('tslint')})
+    .pipe(tslint())
+    .pipe(tslint.report(tsstylish, {
+        emitError: false,
+        sort: true,
+        bell: true,
+        fullPath: true
+    }))
 });
 
 // Process TypeScripts files
@@ -130,7 +144,7 @@ gulp.task('prepare-test', gulp.series('clean-test', 'scripts-test'));
 gulp.task('serve', gulp.parallel('browser-sync', 'watch'));
 
 // Build task
-gulp.task('build', gulp.series('clean', 'sass', 'scripts', 'images', 'copyHtml'));
+gulp.task('build', gulp.series('clean', 'tslint', 'scripts', 'sass', 'images', 'copyHtml'));
 
 // Default task
 gulp.task('default', gulp.series('build'));
