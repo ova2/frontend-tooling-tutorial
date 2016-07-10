@@ -212,6 +212,8 @@ Die Ausgabe sieht ungefähr so aus:
 |   https://github.com/wearefractal/gulp-concat#readme
 ```
 
+Manche Module werden mit `extraneous` als irrelevant bzw. überflüssig angezeigt. Solche Module kann man mit dem Befehl `npm prune` aufräumen. Beim Aufruf von `npm prune` gleicht `npm` die Liste der installierten Module mit der Liste der Abhängigkeiten in der Datei `package.json` ab und entfernt alle Abhängigkeiten, die von `package.json` nicht explizit gefordert sind.
+
 Mit `outdated` wird geprüft welche lokale bzw. globale Module aktualisiert werden können.
 
 ```sh
@@ -388,3 +390,5 @@ Es ist auch denkbar, einen Grunt oder Gulp basierten Build mit `scripts` zu trig
   "build:dev": "gulp build"
 }
 ```
+
+Alle verfügbaren `npm` scripts in einem Projekt lassen sich mit dem Befehl `npm run` auflisten.
