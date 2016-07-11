@@ -252,23 +252,19 @@ npm link ../module-1
 Wenn man jetzt Änderungen im `module-1` macht, werden sie automatisch in `module-2/node-modules/module-1` reflektiert. Aus dem Package `module-2` heraus lassen sich JavaScript Dateien im `module-1` ganz einfach importieren (hier als CommonJS Modul mit `require`):
 
 ```sh
-var mod1 = require("module-1/somefile");
+var mod1 = require("module-1");
 mod1.doSomething();
 ```
 
-Alternativ geht es natürlich auch so:
+Wie sucht der require()-Aufruf unter Node.js aber genau nach einer passenden Quelldatei? Angenommen, das Modul heißt `module-1`. Zuerst wird im Verzeichnis `node_modules` nach dem Verzeichis `module-1` gesucht. Sollte require() kein Verzeichnis `node_modules` finden, wird es sich, ausgehend vom aktuellen Standort, ein Verzeichnis höher bewegen und dort erneut nach einem Verzeichnis namens `node_modules` suchen. Ist es vorhanden, sucht require() dort in der gleichen Form nach dem angefragten Modul `node_modules`. Dieses Verfahren wendet require() bis zum Wurzelverzeichnis des aktuellen Dateisystems an. Wird require() auch dort nicht fündig, wirft sie einen entsprechenden Fehler. Ansonsten, wenn das Verzeichnis `module-1` gefunden wird, wertet require() das `main` Attribut in der Datei `package.json` aus. Angenommen das `main` Attribut sieht wie folgt aus:
 
 ```sh
-var mod1 = require("./../module-1/somefile");
-mod1.doSomething();
+...
+  "main": "lib/module-1",
+...
 ```
 
-Zu beachten ist es, dass per Default die Datei-Endung `.js` angenommen wird. D.h. die folgenden Schreibweisen sind äquivalent:
-
-```sh
-require("./../module-1/somefile");
-require("./../module-1/somefile.js");
-```
+Die Angaben in diesem Attribut definieren einen relativen Pfad zum Basispfad des Modules. Der require()-Aufruf wandelt damit `require("module-1")` in `require('module-1/lib/module-1')` um. Wäre diese Angabe in der Datei `package.json` nicht vorhanden, dann würde `require("module-1")` noch die Variante `require("module-1/index")` probieren, so dass die Datei `node_modules/module-1/index.js` geladen wird, sofern sie existiert. Scheitert auch das, gibt der require()-Aufruf einen Fehler zurück.
 
 ## NPM Scripts als Build-Tools
 
