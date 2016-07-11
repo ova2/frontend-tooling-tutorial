@@ -25,6 +25,7 @@
     "no-sparse-arrays": true,
     "no-unexpected-multiline": true,
     "use-isnan": true,
-    "valid-typeof": true
+    "valid-typeof": true,
+    "no-constructor-vars": true
   }
 }
