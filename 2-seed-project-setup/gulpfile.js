@@ -46,11 +46,11 @@ gulp.task('clean', function () {
 gulp.task('sass', function () {
     return gulp.src('app/css/entry.scss', {since: gulp.lastRun('sass')})
     .pipe(plumber({errorHandler: onError}))
-    .pipe(concat('bundle.css'))
     .pipe(sass({
         "includePaths": ["./node_modules/normalize.css"]
     }).on('error', sass.logError))
     .pipe(autoprefix('last 2 versions'))
+    .pipe(concat('bundle.css'))
     .pipe(config.prod ? printSpaceSavings.init() : util.noop())
     .pipe(config.prod ? cleanCSS() : util.noop())
     .pipe(config.prod ? printSpaceSavings.print() : util.noop())

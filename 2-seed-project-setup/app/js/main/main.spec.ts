@@ -20,7 +20,7 @@ describe("Application tests", function () {
         cleanup();
     });
 
-    it("greeting should be present in the DOM for valid selector", (done) => {
+    it("greeting should be present in the DOM for valid selector", () => {
         // setup mocks
         let node: any = {};
         let nodeList: [any] = [node];
@@ -33,7 +33,5 @@ describe("Application tests", function () {
 
         // verify
         expect(node.innerText).to.be.eq(Greeting.sayHello("TypeScript!"));
-
-        done();
     });
 });

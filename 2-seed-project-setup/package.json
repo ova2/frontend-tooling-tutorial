@@ -45,6 +45,7 @@
     "postinstall": "typings install",
     "clean": "gulp clean",
     "lint": "gulp tslint",
+    "build": "gulp build",
     "build:css": "gulp sass",
     "build:js": "gulp scripts",
     "build:img": "gulp images",
