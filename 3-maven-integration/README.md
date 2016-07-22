@@ -150,7 +150,7 @@ Das Paketieren ist in der Datei `assembly.xml` definiert.
 </assembly>
 ```
 
-Das Backend-Projekt muss zuerst das `tar.gz` Archiv entpacken. Das geschieht in der `pom.xml` des Backend-Projektes mit Hilfe von [Maven Dependency Plugin](http://maven.apache.org/plugins/maven-dependency-plugin/). Die entsprechende Konfiguration sieht folgendermaßen aus:
+Das Backend-Projekt muss zuerst das `tar.gz` Archiv entpacken. Das geschieht in der `pom.xml` Datei des Backend-Projektes mit Hilfe von [Maven Dependency Plugin](http://maven.apache.org/plugins/maven-dependency-plugin/). Die entsprechende Konfiguration sieht folgendermaßen aus:
 
 ```xml
 <plugin>
