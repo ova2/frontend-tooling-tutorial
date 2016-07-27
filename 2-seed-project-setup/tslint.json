@@ -26,6 +26,7 @@
     "no-unexpected-multiline": true,
     "use-isnan": true,
     "valid-typeof": true,
-    "no-constructor-vars": true
+    "no-constructor-vars": true,
+    "no-reference": false
   }
 }

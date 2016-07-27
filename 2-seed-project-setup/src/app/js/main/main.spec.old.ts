@@ -3,7 +3,7 @@ import "../../../typings/index.d.ts";
 import {expect} from "chai";
 import * as sinon from "sinon";
 import Application from "./main";
-import Greeting from "./../greeting/greeting";
+import Greeting from "../greeting/greeting";
 
 declare function require(moduleName: string): any;
 
@@ -25,7 +25,8 @@ describe("Application tests", function () {
         let node: any = {};
         let nodeList: [any] = [node];
 
-        sinon.stub(document, "querySelectorAll").withArgs(".greeting").returns(nodeList);
+        let $ = sinon.stub();
+        $.withArgs(".greeting").returns(nodeList);
 
         // execute logic
         app = new Application(".greeting");

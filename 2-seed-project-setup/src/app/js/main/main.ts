@@ -1,3 +1,5 @@
+/// <reference path="../../../../typings/index.d.ts" />
+
 import Greeting from "../greeting/greeting";
 
 export default class Application {
@@ -9,7 +11,7 @@ export default class Application {
     }
 
     public showHello(text: string) {
-        let nodeList = document.querySelectorAll(this.selector);
+        let nodeList = $(this.selector);
         if (nodeList && nodeList.length > 0) {
             // cast generic Element to HTMLElement because the result can be SVGElement, etc. too
             const el = <HTMLElement> nodeList[0];

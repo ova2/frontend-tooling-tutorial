@@ -4,13 +4,13 @@
     "moduleResolution": "node",
     "target": "es5",
     "noImplicitAny": true,
-    "declaration": true,
     "sourceMap": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
   "exclude": [
     "node_modules",
+    "config",
     "dist",
     "test"
   ]

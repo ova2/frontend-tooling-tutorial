@@ -3,9 +3,12 @@
   "dependencies": {
     "sinon": "registry:npm/sinon#1.16.0+20160427193336"
   },
-  "globalDependencies": {
+  "globalDevDependencies": {
     "chai": "registry:dt/chai#3.4.0+20160601211834",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "mocha": "registry:dt/mocha#2.2.5+20160619032855"
+  },
+  "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008"
   }
 }
