@@ -1,4 +1,4 @@
-### Mini TypeScript project with Gulp, SASS, Browserify, Browsersync, Mocha, Chai, Sinon, TSLint.
+### Mini TypeScript project with Gulp, SASS, Webpack, Webpack-Dev-Server, Mocha, Chai, Sinon, TSLint.
 
 ## Install
 
@@ -22,7 +22,13 @@ After that you can build the project for development with
 npm run build:dev
 ```
 
-The application starts automatically and is available at [http://localhost:3000/](http://localhost:3000/). TypeScript, SASS and HTML files are watched continuously and the application gets updated in the browser when you make any changes.
+This command generates source maps for debugging purpose. The next command builds the project for development and starts the web application automatically.
+
+```sh
+npm run build:serve
+```
+
+The application is available at [http://localhost:3000/](http://localhost:3000/). TypeScript, SASS and HTML files are watched continuously and the application gets updated in the browser when you make any changes.
 
 The following command builds the project for production. The delivered project can be found below the `dist` folder.
 
@@ -30,11 +36,7 @@ The following command builds the project for production. The delivered project c
 npm run build:prod
 ```
 
-The linting of TypeScript files occurs during the build, but you can run the linting process separate as well:
-
-```sh
-npm run lint
-```
+All files for production are minimized. The linting of TypeScript files occurs during the build.
 
 Use this command to run tests with Mocha runner:
 
