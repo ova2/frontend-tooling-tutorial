@@ -31,66 +31,75 @@ module.exports = {
             // TSlint loader support for *.ts files
             // https://github.com/wbuchwalter/tslint-loader
             test: /\.ts$/,
-            loader: 'tslint-loader',
+            loader: 'tslint',
             exclude: [path.join(ROOT, 'node_modules')]
         }],
         loaders: [{
             test: /\.tsx?$/,
-            loader: 'ts-loader'
+            loader: 'ts'
         }, {
             test: /\.json$/,
-            loader: 'json-loader'
+            loader: 'json'
         }, {
             test: /\.html$/,
-            loader: 'raw-loader'
+            loader: 'raw'
         }, {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract({
-                fallbackLoader: "style-loader",
-                loader: "css-loader"
+                fallbackLoader: "style",
+                loader: "css"
             })
         }, {
             test: /\.scss/,
             loader: ExtractTextPlugin.extract({
-                fallbackLoader: "style-loader",
-                loader: "css-loader!postcss-loader!sass-loader"
+                fallbackLoader: "style",
+                loader: "css!postcss!sass"
             }),
             exclude: /^\_.*\.scss/
         }, {
-            test: /\.(png|jpe?g)$/,
-            loader: 'url-loader?limit=8192'
+            test: /\.(png|jpe?g|gif|svg)$/i,
+            loaders: ['file?name=[path][name].[ext]', 'image-webpack']
         }, {
-            test: /\.(gif|svg|ttf|eot$)$/i,
-            loader: 'file-loader'
+            test: /\.(ttf|eot)$/,
+            loader: 'file'
         }, {
             test: /\.(woff|woff2)$/,
-            loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+            loader: 'url?limit=10000&mimetype=application/font-woff'
         }]
     },
     postcss: function () {
-        return [autoprefixer];
+        // try the jquery for browsers here - http://browserl.ist/
+        return [autoprefixer({browsers: ['last 3 versions']})];
     },
     plugins: [
-    new ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery"
-    }),
-    new CommonsChunkPlugin('vendor'),
-    // See https://medium.com/@matt.krick/a-production-ready-realtime-saas-with-webpack-7b11ba2fa5b0#.jablywr34
-    new CommonsChunkPlugin({name: 'manifest', minChunks: Infinity}),
-    new ExtractTextPlugin({
-        filename: "bundle.css",
-        allChunks: true
-    }), new HashedModuleIdsPlugin(),
+        new ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
+        new CommonsChunkPlugin('vendor'),
+        // move webpack runtime code to a separate manifest file to support long-term caching.
+        // this will avoid hash recreation for vendor files when they are not changed.
+        new CommonsChunkPlugin({
+            name: 'manifest',
+            minChunks: Infinity
+        }),
+        new ExtractTextPlugin({
+            filename: "bundle.css",
+            allChunks: true
+        }), new HashedModuleIdsPlugin(),
         new WebpackMd5Hash(),
         new OccurrenceOrderPlugin(),
         new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: '../index.html',
-        chunksSortMode: function (a, b) {
-            var idxA = CHUNKS_SORT_ORDER.indexOf(a.names[0]);
-            var idxB = CHUNKS_SORT_ORDER.indexOf(b.names[0]);
-            return idxA - idxB;
-        }
-    })]
+            filename: 'index.html',
+            template: '../index.html',
+            minify: {
+                removeComments: true
+            },
+            chunksSortMode: function (a, b) {
+                var idxA = CHUNKS_SORT_ORDER.indexOf(a.names[0]);
+                var idxB = CHUNKS_SORT_ORDER.indexOf(b.names[0]);
+                return idxA - idxB;
+            }
+        })
+    ]
 };

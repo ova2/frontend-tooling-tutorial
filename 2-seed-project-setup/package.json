@@ -9,15 +9,15 @@
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "chai": "^3.5.0",
+    "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.23.1",
-    "del": "^2.2.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.3",
     "file-loader": "^0.9.0",
     "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
-    "gulp-imagemin": "^3.0.0",
     "gulp-typescript": "^2.13.6",
     "gulp-util": "^3.0.7",
     "html-webpack-plugin": "^2.22.0",
+    "image-webpack-loader": "^2.0.0",
     "jsdom": "^9.4.0",
     "jsdom-global": "^2.0.0",
     "json-loader": "^0.5.4",
@@ -26,6 +26,7 @@
     "open-browser-webpack-plugin": "0.0.2",
     "postcss-loader": "^0.9.1",
     "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.4",
     "sass-loader": "^4.0.0",
     "sinon": "^1.17.4",
     "style-loader": "^0.13.1",
@@ -47,10 +48,12 @@
   },
   "scripts": {
     "postinstall": "typings install",
+    "prebuild:dev": "rimraf dist",
+    "build:dev": "gulp webpack:dev && npm run test",
+    "prebuild:prod": "npm run prebuild:dev",
+    "build:prod": "gulp webpack:prod && npm run test",
     "server:dev": "webpack-dev-server --config config/webpack.dev.js --display-error-details --inline",
-    "build:serve": "gulp build:dev && npm run server:dev",
-    "build:dev": "gulp build:dev && npm run test",
-    "build:prod": "gulp build:prod && npm run test",
-    "test": "gulp prepare-test && mocha --reporter spec test/**/*.spec.js"
+    "build:serve": "npm run build:dev && npm run server:dev",
+    "test": "rimraf test && gulp scripts:test && mocha --reporter spec test/**/*.spec.js"
   }
 }

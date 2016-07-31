@@ -3,6 +3,7 @@ var webpackMerge = require('webpack-merge');
 var validate = require('webpack-validator');
 var commonConfig = require('./webpack.common.js');
 
+var SourceMapDevToolPlugin = require('webpack/lib/SourceMapDevToolPlugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = validate(webpackMerge(commonConfig, {
@@ -10,12 +11,15 @@ module.exports = validate(webpackMerge(commonConfig, {
         filename: '[name].js',
         chunkFilename: '[name].js'
     },
-    devtool: 'source-map',
     tslint: {
         emitErrors: false,
         failOnHint: false
     },
     plugins: [
+        new SourceMapDevToolPlugin({
+            filename: '[file].map',
+            exclude: ['bundle.css', 'manifest.js', 'vendor.js']
+        }),
         new OpenBrowserPlugin({url: 'http://localhost:3000'})
     ],
     devServer: {
