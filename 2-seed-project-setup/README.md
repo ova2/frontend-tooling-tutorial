@@ -1,4 +1,4 @@
-### Mini TypeScript project with Gulp, SASS, Webpack, Webpack-Dev-Server, Mocha, Chai, Sinon, TSLint.
+### Mini TypeScript project with SASS, Webpack, Webpack-Dev-Server, Mocha, Chai, Sinon, TSLint.
 
 ## Install
 

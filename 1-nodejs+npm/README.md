@@ -143,12 +143,33 @@ Node.js Module verfolgen eine so genannte semantische Versionierung. Ein Modul h
 }
 ```
 
-Die exakten Versionen und Ranges kann man auch explizit bei der Installation angeben. Auch bestimmte Git-Branches lassen sich angeben. Beispiele:
+Die exakten Versionen und Ranges kann man auch explizit bei der Installation angeben. Auch Tags (Aliases für Versionen) und bestimmte Git-Branches lassen sich angeben. Beispiele:
 
 ```sh
 npm install jquery@1.11.0 --save
 npm install sax@">=0.1.0 <0.2.0" --save
+npm install typescript@beta --save
 npm install -g git+https://git@github.com/gulpjs/gulp-cli.git#4.0
+```
+
+Die folgenden Befehle
+
+```sh
+npm view <modulename> versions
+```
+
+und
+
+```sh
+npm view <modulename> dist-tags
+```
+
+geben alle verfügbaren Versionen bzw. Tags eines Modules aus. Z.B.
+
+```sh
+npm view typescript dist-tags
+
+{ latest: '1.8.10', next: '2.1.0-dev.20160814', beta: '2.0.0' }
 ```
 
 `npm` hat eine eingebaute Versions-Bumping. Damit wird die Versionsnummer in der `package.json` Datei um eins erhöht, ein Git-Commit gemacht und dieser Commit getaggt. Hier sind die Befehle:
@@ -174,7 +195,7 @@ npm config set registry https://<whatever>/
 
 Generell, mit `npm config set <whatever>` wird die Datei `.npmrc` modifiziert. Die Datei `.npmrc` wird entweder im Projekt-Hauptverzeichnis (Konfiguration pro Projekt) oder im Benutzer-Homeverzeichnis angelegt. D.h. entweder irgendwo in `/path/to/my/project/.npmrc` oder `~/.npmrc`.
 
-Oft wird es empfohlen, nur die Patch-Releases aktualisieren zu lassen. D.h. nur die Patchnummern sind variabel (beispielweise `1.0.x`). Damit werden böse Überraschungen vermieden, dass das Projekt plötzlich nicht gebaut werden kann. Das Problem liegt oft in den transitiven Abhängigkeiten. Angenommen, Ihr Modul `A` hängt vom Modul `B` ab und das Modul `B` hängt seinerseits vom Modul `C` ab. Angenommen, die Module `B` und `C` sind third-party Module, d.h. Sie haben keinen Einfluss darauf. Wird jetzt die Version des Moduls `C` geändert, kann der Build u.U. fehlschlagen, wenn sogar die Versionen der Modulen `A` und `B` nicht geändert wurden. Man kann die Gefahr eines fehlgeschlagenes Builds noch weiter minimieren, indem man [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) verwendet. Der Befehl
+Oft wird es empfohlen, nur die Patch-Releases aktualisieren zu lassen. D.h. nur die Patchnummern sind variabel (beispielweise `1.0.x`). Damit werden böse Überraschungen vermieden, dass das Projekt plötzlich nicht gebaut werden kann. Das Problem liegt oft in den transitiven Abhängigkeiten. Angenommen, Ihr Modul `A` hängt vom Modul `B` ab und das Modul `B` hängt seinerseits vom Modul `C` ab. Angenommen, die Module `B` und `C` sind third-party Module, d.h. Sie haben keinen Einfluss darauf. Wird jetzt die Version des Modules `C` geändert, kann der Build u.U. fehlschlagen, wenn sogar die Versionen der Modulen `A` und `B` nicht geändert wurden. Man kann die Gefahr eines fehlgeschlagenes Builds noch weiter minimieren, indem man [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) verwendet. Der Befehl
 
 ```sh
 npm shrinkwrap
@@ -182,7 +203,7 @@ npm shrinkwrap
 
 erlaubt die Versionen aller im Projekt benutzen Modulen mit ihren Abhängigkeiten unter `node_modules` "einzufrieren". Damit werden die Versionsänderungen sozusagen "gesperrt". Wie funktioniert das? Der Befehl `npm shrinkwrap` erzeugt die Datei `npm-shrinkwrap.json`, in der die exakten Versionen aller fürs Projekt installierten Modulen mit ihren Abhängigkeiten aufgelistet sind. Die Datei `npm-shrinkwrap.json` wird unter Versionskontrolle gestellt. Nun bekommen alle Teamkollegen genau die gleichen exakten Versionen aller Modulen mit ihren Abhängigkeiten, nachdem sie `npm install` ausgeführt haben.
 
-## Nützliche NPM-Befehle
+## Weitere nützliche NPM-Befehle
 
 Weitere nützliche `npm` Befehle sind `ls`, `outdated` und `link`. Mit `ls` werden alle installierten lokalen oder globalen Module aufgelistet. Man kann dazu noch das Flag `-l` für die Ausgabe der kurzen Beschreibungen nutzen. Schreibt man `--depth=0`, werden nur noch die Top-Level Module und nicht der ganze Dependency-Baum aufgelistet.
 
