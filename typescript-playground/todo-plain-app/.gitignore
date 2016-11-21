@@ -1,0 +1,7 @@
+**/*.js
+**/*.js.map
+.idea
+*.iml
+.vscode
+**/node_modules/
+**/npm-debug.log
