@@ -1,4 +1,4 @@
-import "./../css/entry.scss";
+import "../css/entry.scss";
 import "./../img/logo.png";
 
 import Application from "./main/main";

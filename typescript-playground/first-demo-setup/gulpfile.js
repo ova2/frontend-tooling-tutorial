@@ -3,8 +3,8 @@ var util = require('gulp-util');
 var ts = require('gulp-typescript');
 var webpack = require("webpack");
 
-var webpackDev = require("./config/webpack.dev");
-var webpackProd = require("./config/webpack.prod");
+var webpackDev = require("./config/webpack.dev.js");
+var webpackProd = require("./config/webpack.prod.js");
 
 // var prod = !!util.env.production;
 
