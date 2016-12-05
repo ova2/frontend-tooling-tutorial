@@ -1,0 +1,22 @@
+{
+  "name": "module-augmentation",
+  "version": "1.0.0",
+  "description": "Playing with module augmentation",
+  "author": "Oleg Varaksin",
+  "license": "MIT",
+  "dependencies": {
+    "systemjs": "0.19.41"
+  },
+  "devDependencies": {
+    "http-server": "0.9.0",
+    "tslint": "4.0.2",
+    "typescript": "2.0.8"
+  },
+  "scripts": {
+    "start": "http-server -a localhost -c-1 -p 8080",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "lint": "tslint -c tslint.json app/*.ts"
+  },
+  "private": true
+}
