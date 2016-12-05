@@ -5,9 +5,3 @@ target
 .project
 .idea
 *.iml
-
-target/
-node_modules/
-typings/
-dist/
-test/

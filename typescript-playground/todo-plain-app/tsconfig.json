@@ -2,10 +2,14 @@
   "compilerOptions": {
     "module": "commonjs",
     "sourceMap": true,
-    "target": "ES5",
+    "target": "es5",
+    "noEmitOnError": true,
     "noImplicitAny": true
   },
   "files": [
     "app/main.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

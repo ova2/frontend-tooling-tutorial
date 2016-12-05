@@ -5,7 +5,7 @@
   "author": "Oleg Varaksin",
   "license": "MIT",
   "dependencies": {
-    "systemjs": "0.19.38"
+    "systemjs": "0.19.41"
   },
   "devDependencies": {
     "http-server": "0.9.0",
