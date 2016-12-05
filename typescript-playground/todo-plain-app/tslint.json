@@ -15,6 +15,7 @@
       "check-module",
       "check-type"
     ],
-    "no-string-literal": false
+    "no-string-literal": false,
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
   }
 }
