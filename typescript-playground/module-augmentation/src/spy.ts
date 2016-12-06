@@ -10,5 +10,6 @@ export function spy(fn: Function): Spy {
     };
 
     _spy.records = [];
+
     return _spy;
 }

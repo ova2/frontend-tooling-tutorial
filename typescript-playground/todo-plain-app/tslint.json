@@ -16,6 +16,7 @@
       "check-type"
     ],
     "no-string-literal": false,
-    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+    "no-console": [true, "error", "debug", "info", "trace"]
   }
 }

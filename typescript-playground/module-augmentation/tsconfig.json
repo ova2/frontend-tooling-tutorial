@@ -6,7 +6,10 @@
     "noEmitOnError": true,
     "noImplicitAny": true,
     "sourceRoot": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": [
+      "jasmine"
+    ]
   },
   "exclude": [
     "node_modules"

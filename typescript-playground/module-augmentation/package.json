@@ -8,15 +8,24 @@
     "systemjs": "0.19.41"
   },
   "devDependencies": {
+    "@types/jasmine": "^2.5.35",
     "http-server": "0.9.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.2.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-mocha-reporter": "^2.2.1",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-typescript": "^2.1.4",
     "tslint": "4.0.2",
-    "typescript": "2.0.8"
+    "typescript": "^2.0.10"
   },
   "scripts": {
     "start": "http-server -a localhost -c-1 -p 8080",
     "build": "tsc",
     "watch": "tsc --watch",
-    "lint": "tslint -c tslint.json app/*.ts"
+    "lint": "tslint -c tslint.json src/*.ts",
+    "test": "karma start karma.conf.js"
   },
   "private": true
 }
