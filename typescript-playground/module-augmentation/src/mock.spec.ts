@@ -1,43 +1,40 @@
 import {mock} from './mock';
 
 describe('src/mock', () => {
-    it('mocked function should be silent', () => {
-        function passthru(...args: any[]): any[] {
-            return args;
-        }
+    it('simple mock is a function without return value', () => {
+        let mockedFn = mock();
 
-        let mockedFn = mock(passthru);
-
-        // verify return value of real function
-        expect(passthru(1, 2)).toEqual([1, 2]);
-        // verify return value of mocked function
+        // verify return value of mocked function with some arguments
         expect(mockedFn(1, 2)).toBeUndefined();
     });
 
-    it('mocked function should return defined return value', () => {
-        function sum(a: number, b: number): number {
-            return a + b;
-        }
+    it('mocked function with defined return value', () => {
+        let mockedFn = mock().returns(10);
 
-        let mockedFn = mock(sum);
-        mockedFn.returns(10);
-
-        // verify return value of real function
-        expect(sum(1, 2)).toEqual(3);
         // verify return value of mocked function
-        expect(mockedFn(1, 2)).toEqual(10);
+        expect(mockedFn()).toEqual(10);
     });
 
-    it('mocked function should throw error', () => {
-        function greeting(): string {
-            return 'Hello World';
-        }
-
-        let mockedFn = mock(greeting);
+    it('mocked function which should throw error', (done) => {
         let err = new Error('Unexpected error');
-        mockedFn.throws(err);
+        let mockedFn = mock().throws(err);
 
         // verify error
-        expect(mockedFn()).toThrowError('Unexpected error');
+        try {
+            mockedFn();
+        } catch (e) {
+            expect(e).toBe(err);
+            done();
+        }
+
+        fail('An Error shoud be thrown');
+    });
+
+    it('mocked function with defined arguments and return value', () => {
+        let mockedFn = mock().withArgs([1, 2]).returns({a: 'a', b: 'b'});
+
+        // verify return value of mocked function with defined arguments
+        expect(mockedFn([1, 2])).toEqual({a: 'a', b: 'b'});
+        expect(mockedFn([3, 4])).toBeUndefined();
     });
 });

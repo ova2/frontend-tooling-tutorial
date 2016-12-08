@@ -1,27 +1,52 @@
 interface Mock {
-    (...args: any[]): Function;
+    (...args: any[]): any | never;
     // return the provided value
-    returns(obj: any): void;
+    returns(obj: any): Mock;
     // throw the provided exception object
-    throws(err: Error): void;
+    throws(err: Error): Mock;
+    // received arguments to be considered for "returns" / "throws"
+    withArgs(...args: any[]): Mock;
 }
 
-export function mock(fn: Function): Mock {
-    let _mock: Mock = <Mock>function (...args: any[]) {
-        // do nothing
-    };
+const meta = {
+    withArgs: void 0 as any[],
+    returns: void 0 as any,
+    throws: void 0 as Error
+};
 
-    _mock.returns = function (obj: any) {
-        return function (...args: any[]) {
-            return obj;
-        };
-    };
+let mockFn: Mock = <Mock>function (...args: any[]) {
+    let matchArgs = true;
+    if (meta.withArgs !== void 0) {
+        // deeply check if arguments are equals
+        matchArgs = JSON.stringify(meta.withArgs) === JSON.stringify(args);
+    }
 
-    _mock.throws = function (err: Error) {
-        return function (...args: any[]) {
-            throw err;
-        };
-    };
+    if (matchArgs && meta.returns !== void 0) {
+        return meta.returns;
+    }
 
-    return _mock;
+    if (matchArgs && meta.throws !== void 0) {
+        throw meta.throws;
+    }
+};
+
+mockFn.withArgs = function (obj: any): Mock {
+    meta.withArgs = obj;
+    return this;
+};
+
+mockFn.returns = function (obj: any): Mock {
+    meta.returns = obj;
+    meta.throws = void 0;
+    return this;
+};
+
+mockFn.throws = function (err: Error): Mock {
+    meta.throws = err;
+    meta.returns = void 0;
+    return this;
+};
+
+export function mock(): Mock {
+    return mockFn;
 }

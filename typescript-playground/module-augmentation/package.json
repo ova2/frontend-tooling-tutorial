@@ -18,14 +18,17 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-typescript": "^2.1.4",
     "phantomjs-prebuilt": "^2.1.7",
+    "rimraf": "^2.5.4",
     "tslint": "4.0.2",
-    "typescript": "^2.0.10"
+    "typescript": "^2.1.4"
   },
   "scripts": {
     "start": "http-server -a localhost -c-1 -p 8080",
+    "prebuild": "rimraf dist",
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "tslint -c tslint.json src/*.ts",
+    "pretest": "yarn run build",
     "test": "karma start karma.conf.js"
   },
   "private": true

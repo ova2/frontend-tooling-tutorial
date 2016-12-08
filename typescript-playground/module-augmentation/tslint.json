@@ -18,6 +18,9 @@
     "no-string-literal": false,
     "interface-name": false,
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
-    "no-console": [true, "error", "debug", "info", "trace"]
+    "no-console": [true, "error", "debug", "info", "trace"],
+    "trailing-comma": [false],
+    "object-literal-sort-keys": false,
+    "no-trailing-whitespace": false
   }
 }
