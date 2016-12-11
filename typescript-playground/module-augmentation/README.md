@@ -4,8 +4,5 @@ Blog post: [Modern way of adding new functionality to TypeScript libraries by pa
 
 ```sh
 yarn install
-yarn run build
-yarn start
+yarn test
 ```
-
-Running application is available at [http://localhost:8080/](http://localhost:8080/)

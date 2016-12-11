@@ -4,12 +4,11 @@
   "description": "Playing with module augmentation",
   "author": "Oleg Varaksin",
   "license": "MIT",
-  "dependencies": {
-    "systemjs": "0.19.41"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/deep-equal": "^0.0.30",
     "@types/jasmine": "^2.5.35",
-    "http-server": "0.9.0",
+    "deep-equal": "^1.0.1",
     "jasmine-core": "^2.5.2",
     "karma": "^1.2.0",
     "karma-cli": "^1.0.1",
@@ -23,7 +22,6 @@
     "typescript": "^2.1.4"
   },
   "scripts": {
-    "start": "http-server -a localhost -c-1 -p 8080",
     "prebuild": "rimraf dist",
     "build": "tsc",
     "watch": "tsc --watch",

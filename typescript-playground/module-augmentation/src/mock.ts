@@ -1,3 +1,5 @@
+import deepEqual = require('deep-equal');
+
 interface Mock {
     (...args: any[]): any | never;
     // return the provided value
@@ -18,7 +20,7 @@ let mockFn: Mock = <Mock>function (...args: any[]) {
     let matchArgs = true;
     if (meta.withArgs !== void 0) {
         // deeply check if arguments are equals
-        matchArgs = JSON.stringify(meta.withArgs) === JSON.stringify(args);
+        matchArgs = deepEqual(meta.withArgs, args);
     }
 
     if (matchArgs && meta.returns !== void 0) {
@@ -30,8 +32,8 @@ let mockFn: Mock = <Mock>function (...args: any[]) {
     }
 };
 
-mockFn.withArgs = function (obj: any): Mock {
-    meta.withArgs = obj;
+mockFn.withArgs = function (...args: any[]): Mock {
+    meta.withArgs = args;
     return this;
 };
 
