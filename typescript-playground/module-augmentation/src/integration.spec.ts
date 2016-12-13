@@ -1,4 +1,5 @@
 import {mock} from './mock';
+import './spy';
 
 describe('src/mock', () => {
     it('simple mock is a function without return value', () => {

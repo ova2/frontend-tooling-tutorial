@@ -1,15 +1,23 @@
-interface Spy {
-    (...args: any[]): Function;
-    records: any[][];
+import {Mock, mock as mockOriginal} from './mock';
+
+declare module './mock' {
+    interface Mock {
+        records: any[][];
+    }
 }
 
-export function spy(fn: Function): Spy {
-    let _spy: Spy = <Spy>function (...args) {
-        _spy.records.push(args);
-        return fn.apply(this, args);
-    };
+function mock(fn: Function): Mock {
+    if (typeof fn === 'function') {
+        let _spy: Mock = <Mock>function (...args: any[]) {
+            _spy.records.push(args);
+            return fn.apply(this, args);
+        };
 
-    _spy.records = [];
+        _spy.records = [];
 
-    return _spy;
+        return _spy;
+    } else {
+        return mockOriginal();
+    }
 }
+
