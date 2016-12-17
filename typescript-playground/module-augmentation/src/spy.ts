@@ -1,23 +1,26 @@
-import {Mock, mock as mockOriginal} from './mock';
+import {Mockito} from './mock';
 
+interface Spy {
+    (...args: any[]): Function;
+    records: any[][];
+}
+
+function spyFn(fn: Function): Spy {
+    let _spy: Spy = <Spy>function (...args) {
+        _spy.records.push(args);
+        return fn.apply(this, args);
+    };
+
+    _spy.records = [];
+    return _spy;
+}
+
+// Extend Mockito with a new static function called spy 
+Mockito.spy = spyFn;
+
+// Type definition for the spy function 
 declare module './mock' {
-    interface Mock {
-        records: any[][];
+    namespace Mockito {
+        export let spy: typeof spyFn;
     }
 }
-
-function mock(fn: Function): Mock {
-    if (typeof fn === 'function') {
-        let _spy: Mock = <Mock>function (...args: any[]) {
-            _spy.records.push(args);
-            return fn.apply(this, args);
-        };
-
-        _spy.records = [];
-
-        return _spy;
-    } else {
-        return mockOriginal();
-    }
-}
-

@@ -1,6 +1,12 @@
 import deepEqual = require('deep-equal');
 
-export interface Mock {
+export class Mockito {
+    static mock(): Mock {
+        return mock();
+    }
+}
+
+interface Mock {
     (...args: any[]): any | never;
     // return the provided value
     returns(obj: any): Mock;
@@ -10,7 +16,7 @@ export interface Mock {
     withArgs(...args: any[]): Mock;
 }
 
-export function mock(): Mock {
+function mock(): Mock {
     const meta = {
         withArgs: void 0 as any[],
         returns: void 0 as any,
@@ -51,10 +57,4 @@ export function mock(): Mock {
     };
 
     return mockFn;
-}
-
-class Mockito {
-    static mock(): Mock {
-        return mock();
-    }
 }

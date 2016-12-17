@@ -22,6 +22,7 @@
     "trailing-comma": [false],
     "object-literal-sort-keys": false,
     "no-trailing-whitespace": false,
-    "only-arrow-functions": false
+    "only-arrow-functions": false,
+    "no-namespace": false
   }
 }
