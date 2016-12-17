@@ -4,7 +4,9 @@
   "description": "Playing with module augmentation",
   "author": "Oleg Varaksin",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^1.2.0"
+  },
   "devDependencies": {
     "@types/deep-equal": "^0.0.30",
     "@types/jasmine": "^2.5.35",
