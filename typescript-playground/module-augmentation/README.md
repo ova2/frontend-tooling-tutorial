@@ -1,6 +1,6 @@
 # Demo how to use "Module Augmentation" in TypeScript.
 
-Blog post: [Modern way of adding new functionality to TypeScript libraries by patching existing modules](https://medium.com/p/6dcde608de56/edit)
+Blog post: [Modern way of adding new functionality to TypeScript libraries by patching existing modules](https://medium.com/@OlegVaraksin/modern-way-of-adding-new-functionality-to-typescript-libraries-by-patching-existing-modules-6dcde608de56)
 
 ## Install Yarn
 
