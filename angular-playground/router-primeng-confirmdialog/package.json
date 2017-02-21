@@ -1,0 +1,32 @@
+{
+  "name": "router-primeng-confirmdialog",
+  "version": "1.0.0",
+  "description": "CanDeactivate guard with PrimeNG ConfirmDialog",
+  "author": "Oleg Varaksin",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@angular/common": "~2.4.0",
+    "@angular/compiler": "~2.4.0",
+    "@angular/core": "~2.4.0",
+    "@angular/forms": "~2.4.0",
+    "@angular/http": "~2.4.0",
+    "@angular/platform-browser": "~2.4.0",
+    "@angular/platform-browser-dynamic": "~2.4.0",
+    "@angular/router": "~3.4.0",
+    "core-js": "^2.4.1",
+    "primeng": "^2.0.1",
+    "rxjs": "5.0.1",
+    "systemjs": "0.19.39",
+    "zone.js": "^0.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.45",
+    "typescript": "~2.1.0",
+    "live-server": "~1.2.0",
+    "tslint": "~4.4.2"
+  },
+  "scripts": {
+    "start": "live-server"
+  }
+}
