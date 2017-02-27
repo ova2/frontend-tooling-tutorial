@@ -10,6 +10,7 @@
       "es2015",
       "dom"
     ],
+    "outDir": "dist",
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true
   }
