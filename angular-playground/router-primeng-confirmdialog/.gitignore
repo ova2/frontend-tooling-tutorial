@@ -1,5 +1,5 @@
 **/*.js.map
-app/**/*.js
+src/app/**/*.js
 .idea
 *.iml
 .vscode

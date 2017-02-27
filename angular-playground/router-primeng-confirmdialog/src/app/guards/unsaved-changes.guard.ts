@@ -1,7 +1,7 @@
 import {CanDeactivate, Router} from '@angular/router';
 import {Injectable} from '@angular/core';
-import {FirstViewComponent} from '../components/first-view/first-view';
 import {ConfirmationService} from 'primeng/components/common/api';
+import {FirstViewComponent} from '../first-view/first-view.component';
 
 @Injectable()
 export class UnsavedChangesGuard implements CanDeactivate<FirstViewComponent> {
@@ -22,7 +22,7 @@ export class UnsavedChangesGuard implements CanDeactivate<FirstViewComponent> {
                 // TODO
             }
         });
-        
+
         return true;
     }
 }

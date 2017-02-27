@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 
 @Component({
     selector: 'first-view',
-    templateUrl: './first-view.html'
+    templateUrl: 'src/app/first-view/first-view.component.html'
 })
 export class FirstViewComponent {
     constructor(private router: Router) {

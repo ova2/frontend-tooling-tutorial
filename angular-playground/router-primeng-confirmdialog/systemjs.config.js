@@ -10,7 +10,9 @@ System.config({
     },
     map: {
         '@angular': 'node_modules/@angular',
-        'rxjs': 'node_modules/rxjs'
+        'rxjs': 'node_modules/rxjs',
+        'primeng': 'node_modules/primeng',
+        'app': 'src'
     },
     paths: {
         'node_modules/@angular/*': 'node_modules/@angular/*/bundles'
@@ -19,6 +21,9 @@ System.config({
         '@angular/*': {'format': 'cjs'}
     },
     packages: {
+        'primeng': {
+            defaultExtension: 'js'
+        },
         'app': {
             main: 'main',
             defaultExtension: 'ts'
