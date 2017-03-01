@@ -24,6 +24,7 @@
     "no-trailing-whitespace": false,
     "only-arrow-functions": false,
     "no-namespace": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "comment-format": false
   }
 }

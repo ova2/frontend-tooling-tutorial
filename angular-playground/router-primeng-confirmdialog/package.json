@@ -27,6 +27,6 @@
     "tslint": "~4.4.2"
   },
   "scripts": {
-    "start": "live-server"
+    "start": "live-server --entry-file=src/index.html"
   }
 }

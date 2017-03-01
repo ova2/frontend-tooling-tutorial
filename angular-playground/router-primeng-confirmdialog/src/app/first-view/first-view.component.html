@@ -1,7 +1,13 @@
 <h1>This is the first view</h1>
 
-Some form
+<form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <label for="username">Username:</label>
+    <input id="username" name="username" type="text"
+           pInputText [(ngModel)]="username"/>
 
-<button type="text" (click)="gotoNextView()" pButton icon="fa-check" label="Confirm"></button>
+    <button type="submit" pButton label="Confirm"></button>
+</form>
 
-<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<p-confirmDialog header="Confirmation"
+                 icon="fa fa-question-circle" width="400">
+</p-confirmDialog>

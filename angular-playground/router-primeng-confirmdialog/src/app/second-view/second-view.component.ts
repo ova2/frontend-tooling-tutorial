@@ -5,7 +5,4 @@ import {Component} from '@angular/core';
     templateUrl: 'src/app/second-view/second-view.component.html'
 })
 export class SecondViewComponent {
-    constructor() {
-        // TODO
-    }
 }
