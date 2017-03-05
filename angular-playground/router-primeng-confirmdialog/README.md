@@ -1,6 +1,6 @@
 # Displaying PrimeNG confirmation dialog with guarded routes.
 
-Blog post: Coming soon...
+Blog post: [Displaying PrimeNG confirmation dialog with guarded routes](https://medium.com/@OlegVaraksin/displaying-primeng-confirmation-dialog-with-guarded-routes-f5d07e646b4a)
 
 ## Install
 
