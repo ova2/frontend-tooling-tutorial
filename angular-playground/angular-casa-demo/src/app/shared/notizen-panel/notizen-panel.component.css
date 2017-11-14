@@ -1,0 +1,22 @@
+.notizen .header-icon {
+  float: right;
+  margin-right: 0.6em;
+}
+
+.notizen ul {
+  list-style: none;
+}
+
+.notizen ul li {
+  padding: 0 0 1em 0;
+  margin-left: -2em;
+}
+
+.notizen ul li:last-child {
+  padding: 0;
+}
+
+.notizen .metainfo {
+  font-size: 0.9em;
+  color: grey;
+}

@@ -1,0 +1,9 @@
+ .main-navigation.ui-tabview {
+   border: none;
+   background: white;
+ }
+
+.main-navigation.ui-tabview .ui-tabview-nav li.user-tab {
+   float: right;
+   margin-right: 1em;
+ }

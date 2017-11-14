@@ -1,0 +1,39 @@
+.vertraege .ui-datatable .ui-datatable-caption, .ui-datatable .ui-datatable-header {
+    border-radius: 3px;
+}
+
+.vertraege .cellTitle {
+  font-weight: bold;
+}
+
+.vertraege .cellSubtitle {
+  color: grey;
+}
+
+.vertraege .ui-state-highlight .cellSubtitle {
+  color: white;
+}
+
+.vertraege .ui-radiobutton-box.ui-state-default {
+  background-color: white;
+}
+
+.vertraege .ui-radiobutton-box.ui-state-active {
+  border-color: #5a92d1;
+  background: #5a92d1;
+}
+
+.vertraege .ui-state-highlight .ui-radiobutton-box {
+  border-color: white;
+}
+
+.vertraege .greenblock {
+  height: 50px;
+  width: 17px;
+  margin: -9px;
+  background-color: #3cb371;
+}
+
+.vertraege .column-picker {
+  margin-right: 10px;
+}

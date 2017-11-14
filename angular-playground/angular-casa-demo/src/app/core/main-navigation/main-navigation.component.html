@@ -1,0 +1,15 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<p-tabView styleClass="main-navigation">
+				<p-tabPanel header="Strecke"></p-tabPanel>
+				<p-tabPanel header="Produkt"></p-tabPanel>
+				<p-tabPanel header="SAV"></p-tabPanel>
+				<p-tabPanel header="{{user.firstName}} {{user.lastName}}" *ngIf="user"
+                    [selected]="true" [closable]="true" leftIcon="fa-user-circle-o" headerStyleClass="user-tab">
+					<c-sub-navigation></c-sub-navigation>
+				</p-tabPanel>
+			</p-tabView>
+		</div>
+	</div>
+</div>

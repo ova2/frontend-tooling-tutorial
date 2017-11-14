@@ -1,0 +1,42 @@
+<p-dataTable [value]="vertraege" [(selection)]="selectedVertrag" dataKey="id" styleClass="vertraege"
+  [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,15,20,25,30,35,40,45,50]"
+  [responsive]="true" expandableRows="true">
+	<p-header>
+    Verträge
+    <div style="float: right; cursor: pointer;" (click)="op.toggle($event)">
+      <i class="fa fa-server column-picker"></i>Spalten wählen
+    </div>
+  </p-header>
+  <p-column [style]="{'width':'10px'}">
+    <ng-template let-vobj="rowData" pTemplate="body">
+      <div *ngIf="vobj['status'] === 'gültig'" class="greenblock"></div>
+		</ng-template>
+  </p-column>
+  <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
+
+  <p-column *ngFor="let col of selectedColValues" [field]="col.field" [header]="col.header" [sortable]="true">
+    <ng-template *ngIf="!col.singleRow" let-col let-vobj="rowData" pTemplate="body">
+			<span class="cellTitle">
+        {{vobj[col.field].title == null ? vobj[col.field].name : vobj[col.field].title}}
+      </span>
+			<div class="cellSubtitle">
+        {{vobj[col.field].subtitle == null ? vobj[col.field].gebdatum : vobj[col.field].subtitle}}
+      </div>
+		</ng-template>
+
+    <ng-template *ngIf="col.singleRow" let-col let-vobj="rowData" pTemplate="body">
+			{{vobj[col.field]}}
+		</ng-template>
+  </p-column>
+
+  <p-column expander="true" styleClass="col-icon" [style]="{'width':'42px'}"></p-column>
+  <ng-template let-vobj="rowData" pTemplate="rowexpansion">
+    <c-vertrag-history [vertrag]="rowData"></c-vertrag-history>
+  </ng-template>
+</p-dataTable>
+
+<p-overlayPanel #op [style]="{'width': '200px'}">
+  <div *ngFor="let col of cols">
+    <p-checkbox name="colgroup" [value]="col" [label]="col.header" [(ngModel)]="selectedColValues"></p-checkbox>
+  </div>
+</p-overlayPanel>

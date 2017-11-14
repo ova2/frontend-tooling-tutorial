@@ -1,0 +1,6 @@
+/* Add application styles & imports to this file! */
+@import "~primeng/resources/themes/kasper/theme.css";
+@import "~primeng/resources/primeng.min.css";
+
+/* Global styles for all components */
+@import "/global.css";
