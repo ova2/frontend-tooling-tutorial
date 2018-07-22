@@ -1,0 +1,36 @@
+{
+  "name": "dependency-injection-container",
+  "version": "1.0.0",
+  "description": "Dependency Injection with TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*-test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ova2/frontend-tooling-tutorial/tree/master/typescript-playground/dependency-injection-container"
+  },
+  "keywords": [
+    "di",
+    "dependency",
+    "injection",
+    "typescript"
+  ],
+  "private": true,
+  "author": {
+    "name": "Oleg Varaksin",
+    "email": "ovaraksin@googlemail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.5.2",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.12",
+    "typescript": "^2.9.2"
+  }
+}
