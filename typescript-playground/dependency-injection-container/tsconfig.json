@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es2017", "dom"],
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "sourceRoot": "src",
+    "outDir": "dist",
+    "types": [
+      "node",
+      "jasmine"
+    ],
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+  }
+}
