@@ -6,7 +6,7 @@ interface Type<T> {
 
 /**
  * Decorator function to annotate classes which can inject another ones in constructors.
- * A decorator is required in order to have Reflect's metadata.
+ * A decorator is required to be able to get Reflect's metadata.
  */
 export const InjectableClass = (): (target: Type<any>) => void => {
     return (target: Type<any>) => {
@@ -23,7 +23,7 @@ export interface Releasable {
 
 /**
  * Every entry point class instance starts its own dependency container.
- * Injector ensures that all services in the container are singletons.
+ * Injector ensures that all decorated classes in the container are singletons.
  */
 export class Injector extends Map {
 
