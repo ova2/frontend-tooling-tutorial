@@ -1,12 +1,12 @@
 import {ContextCreator} from "./manager/context-creator";
-import {Injector, RenderingEngineInjectable} from "./di-container";
+import {InjectableClass, Releasable} from "./di-container";
 import {SceneManager} from "./manager/scene-manager";
 import {AnimationManager} from "./manager/animation-manager";
 import {InteractionManager} from "./manager/interaction-manager";
 import {ProgramManager} from "./manager/program-manager";
 import {FramebufferManager} from "./manager/framebuffer-manager";
 
-@RenderingEngineInjectable()
+@InjectableClass()
 export class RenderingEngine implements Releasable {
 
     constructor(private _contextCreator: ContextCreator,
@@ -50,17 +50,3 @@ export class RenderingEngine implements Releasable {
         return this._interactionManager;
     }
 }
-
-/**
- * Bootstraps the Rendering Engine.
- *
- * @returns RenderingEngine and the "release" function which releases the DI container
- */
-export const bootstrapRenderingEngine = (): [RenderingEngine, () => void] => {
-    // there is exactly one Injector pro Rendering Engine
-    let injector = new Injector();
-    // bootstrap all dependencies
-    let renderingEngine = injector.resolve<RenderingEngine>(RenderingEngine);
-
-    return [renderingEngine, () => injector.release()];
-};

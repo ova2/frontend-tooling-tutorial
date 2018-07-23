@@ -1,8 +1,8 @@
-import {RenderingEngineInjectable} from "../di-container";
+import {InjectableClass, Releasable} from "../di-container";
 import {ProgramManager} from "./program-manager";
 import {uuid} from "../util/uuid";
 
-@RenderingEngineInjectable()
+@InjectableClass()
 export class SceneManager implements Releasable {
 
     private _uuid: string;

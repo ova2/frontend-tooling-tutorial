@@ -8,14 +8,21 @@ interface Type<T> {
  * Decorator function to annotate classes which can inject another ones in constructors.
  * A decorator is required in order to have Reflect's metadata.
  */
-export const RenderingEngineInjectable = (): (target: Type<any>) => void => {
+export const InjectableClass = (): (target: Type<any>) => void => {
     return (target: Type<any>) => {
         // do something if needed
     };
 };
 
 /**
- * Every Rendering Engine instance starts its own dependency container.
+ * Lifecycle hook that is used for releasing a resource. It will be called automatically by DI container.
+ */
+export interface Releasable {
+    release(): void
+}
+
+/**
+ * Every entry point class instance starts its own dependency container.
  * Injector ensures that all services in the container are singletons.
  */
 export class Injector extends Map {
@@ -47,3 +54,17 @@ export class Injector extends Map {
         this.clear();
     }
 }
+
+/**
+ * Bootstraps the entry point class instance of type T.
+ *
+ * @returns entry point class instance and the "release" function which releases the DI container
+ */
+export const bootstrap = <T>(target: Type<any>): [T, () => void] => {
+    // there is exactly one Injector pro entry point class instance
+    let injector = new Injector();
+    // bootstrap all dependencies
+    let entryClass = injector.resolve<T>(target);
+
+    return [entryClass, () => injector.release()];
+};

@@ -1,9 +1,9 @@
-import {RenderingEngineInjectable} from "../di-container";
+import {InjectableClass} from "../di-container";
 import {SceneManager} from "./scene-manager";
 import {FramebufferManager} from "./framebuffer-manager";
 import {uuid} from "../util/uuid";
 
-@RenderingEngineInjectable()
+@InjectableClass()
 export class AnimationManager {
 
     private readonly _uuid: string;

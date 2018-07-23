@@ -1,8 +1,9 @@
-import {bootstrapRenderingEngine} from "./rendering-engine";
+import {bootstrap} from "./di-container";
+import {RenderingEngine} from "./rendering-engine";
 
 describe('Injector Testing', () => {
     it('should setup and release two Rendering Engines with their own dependencies', () => {
-        let [renderinEngine1, release1] = bootstrapRenderingEngine();
+        let [renderinEngine1, release1] = bootstrap<RenderingEngine>(RenderingEngine);
         renderinEngine1.setup("Setup Rendering Engine 1");
 
         expect(renderinEngine1).not.toBeNull();
@@ -20,7 +21,7 @@ describe('Injector Testing', () => {
         const uuid15 = renderinEngine1.animationManager.uuid;
         const uuid16 = renderinEngine1.interactionManager.uuid;
 
-        let [renderinEngine2, release2] = bootstrapRenderingEngine();
+        let [renderinEngine2, release2] = bootstrap<RenderingEngine>(RenderingEngine);
         renderinEngine2.setup("Setup Rendering Engine 2");
 
         expect(renderinEngine2).not.toBeNull();

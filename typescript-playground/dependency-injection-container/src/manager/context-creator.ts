@@ -1,7 +1,7 @@
-import {RenderingEngineInjectable} from "../di-container";
+import {InjectableClass} from "../di-container";
 import {uuid} from "../util/uuid";
 
-@RenderingEngineInjectable()
+@InjectableClass()
 export class ContextCreator {
 
     private readonly _uuid: string;
