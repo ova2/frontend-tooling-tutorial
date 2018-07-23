@@ -1,11 +1,18 @@
-import {RenderingEngineService} from "../di-container";
+import {RenderingEngineInjectable} from "../di-container";
 import {SceneManager} from "./scene-manager";
 import {FramebufferManager} from "./framebuffer-manager";
+import {uuid} from "../util/uuid";
 
-@RenderingEngineService()
+@RenderingEngineInjectable()
 export class InteractionManager {
 
+    private readonly _uuid: string;
+
     constructor(private sceneManager: SceneManager, private framebufferManager: FramebufferManager) {
-        console.log(`Created InteractionManager`);
+        this._uuid = uuid.generate();
+    }
+
+    get uuid(): string {
+        return this._uuid;
     }
 }

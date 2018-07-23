@@ -1,10 +1,23 @@
-import {RenderingEngineService} from "../di-container";
+import {RenderingEngineInjectable} from "../di-container";
 import {SceneManager} from "./scene-manager";
+import {uuid} from "../util/uuid";
 
-@RenderingEngineService()
-export class FramebufferManager {
+@RenderingEngineInjectable()
+export class FramebufferManager implements Releasable {
+
+    private _uuid: string;
 
     constructor(private sceneManager: SceneManager) {
-        console.log(`Created FramebufferManager`);
+        this._uuid = uuid.generate();
+    }
+
+    public release() {
+        // release ressources
+        this._uuid = null;
+        console.log(`Release ressources for FramebufferManager`);
+    }
+
+    get uuid(): string {
+        return this._uuid;
     }
 }

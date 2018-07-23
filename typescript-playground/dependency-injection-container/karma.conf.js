@@ -14,6 +14,12 @@ module.exports = function (config) {
         },
         port: 9876,
         autoWatch: false,
-        singleRun: true
+        singleRun: true,
+        karmaTypescriptConfig: {
+            compilerOptions: {
+                target: "ES6",
+                lib: ["es2017", "dom"]
+            }
+        }
     });
 };
