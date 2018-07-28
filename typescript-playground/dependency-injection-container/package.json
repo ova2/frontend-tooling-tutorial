@@ -4,7 +4,8 @@
   "description": "Dependency Injection with TypeScript",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js",
+    "build": "parcel build src/rendering-engine.ts"
   },
   "repository": {
     "type": "git",
@@ -23,18 +24,20 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^10.5.2"
-  },
-  "dependencies": {
     "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.5.2",
     "jasmine-core": "^3.1.0",
     "karma": "^2.0.4",
-    "karma-cli": "^1.0.1",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.1.2",
     "karma-mocha-reporter": "^2.2.5",
     "karma-typescript": "^3.0.13",
-    "reflect-metadata": "^0.1.12",
+    "parcel-bundler": "^1.9.7",
+    "puppeteer": "^1.6.1",
     "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.12"
   }
 }
