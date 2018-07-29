@@ -1,10 +1,10 @@
-import {ContextCreator} from "./manager/context-creator";
-import {InjectableClass, Releasable} from "./di-container";
-import {SceneManager} from "./manager/scene-manager";
-import {AnimationManager} from "./manager/animation-manager";
-import {InteractionManager} from "./manager/interaction-manager";
-import {ProgramManager} from "./manager/program-manager";
-import {FramebufferManager} from "./manager/framebuffer-manager";
+import {ContextCreator} from './manager/context-creator';
+import {InjectableClass, Releasable} from './di-container';
+import {SceneManager} from './manager/scene-manager';
+import {AnimationManager} from './manager/animation-manager';
+import {InteractionManager} from './manager/interaction-manager';
+import {ProgramManager} from './manager/program-manager';
+import {FramebufferManager} from './manager/framebuffer-manager';
 
 @InjectableClass()
 export class RenderingEngine implements Releasable {

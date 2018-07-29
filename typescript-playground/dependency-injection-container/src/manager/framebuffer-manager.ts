@@ -1,6 +1,6 @@
-import {InjectableClass, Releasable} from "../di-container";
-import {SceneManager} from "./scene-manager";
-import {uuid} from "../util/uuid";
+import {InjectableClass, Releasable} from '../di-container';
+import {SceneManager} from './scene-manager';
+import {uuid} from '../util/uuid';
 
 @InjectableClass()
 export class FramebufferManager implements Releasable {

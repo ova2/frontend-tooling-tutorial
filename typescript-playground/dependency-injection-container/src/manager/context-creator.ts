@@ -1,5 +1,5 @@
-import {InjectableClass} from "../di-container";
-import {uuid} from "../util/uuid";
+import {InjectableClass} from '../di-container';
+import {uuid} from '../util/uuid';
 
 @InjectableClass()
 export class ContextCreator {

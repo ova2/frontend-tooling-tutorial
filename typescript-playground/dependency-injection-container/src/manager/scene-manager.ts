@@ -1,6 +1,6 @@
-import {InjectableClass, Releasable} from "../di-container";
-import {ProgramManager} from "./program-manager";
-import {uuid} from "../util/uuid";
+import {InjectableClass, Releasable} from '../di-container';
+import {ProgramManager} from './program-manager';
+import {uuid} from '../util/uuid';
 
 @InjectableClass()
 export class SceneManager implements Releasable {

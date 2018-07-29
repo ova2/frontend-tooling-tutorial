@@ -5,7 +5,7 @@
 
 class UUID {
 
-    private lut = [];
+    private lut: any = [];
 
     constructor() {
         for (let i = 0; i < 256; i++) {
@@ -14,10 +14,10 @@ class UUID {
     }
 
     public generate(): string {
-        let d0 = Math.random() * 0xffffffff | 0;
-        let d1 = Math.random() * 0xffffffff | 0;
-        let d2 = Math.random() * 0xffffffff | 0;
-        let d3 = Math.random() * 0xffffffff | 0;
+        const d0 = Math.random() * 0xffffffff | 0;
+        const d1 = Math.random() * 0xffffffff | 0;
+        const d2 = Math.random() * 0xffffffff | 0;
+        const d3 = Math.random() * 0xffffffff | 0;
 
         return this.lut[d0 & 0xff] + this.lut[d0 >> 8 & 0xff] + this.lut[d0 >> 16 & 0xff] + this.lut[d0 >> 24 & 0xff] + '-' +
             this.lut[d1 & 0xff] + this.lut[d1 >> 8 & 0xff] + '-' + this.lut[d1 >> 16 & 0x0f | 0x40] + this.lut[d1 >> 24 & 0xff] + '-' +

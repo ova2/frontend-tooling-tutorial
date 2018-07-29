@@ -18,7 +18,7 @@ export const InjectableClass = (): (target: Type<any>) => void => {
  * Lifecycle hook that is used for releasing a resource. It will be called automatically by DI container.
  */
 export interface Releasable {
-    release(): void
+    release(): void;
 }
 
 /**
@@ -29,7 +29,7 @@ export class Injector extends Map {
 
     public resolve<T>(target: Type<any>): T {
         const tokens = Reflect.getMetadata('design:paramtypes', target) || [];
-        const injections = tokens.map(token => this.resolve<any>(token));
+        const injections = tokens.map((token: Type<any>) => this.resolve<any>(token));
 
         const classInstance = this.get(target);
         if (classInstance) {
@@ -45,7 +45,7 @@ export class Injector extends Map {
     }
 
     public release(): void {
-        for (let value of this.values()) {
+        for (const value of this.values()) {
             if (typeof value['release'] === 'function') {
                 value['release']();
             }
@@ -62,9 +62,9 @@ export class Injector extends Map {
  */
 export const bootstrap = <T>(target: Type<any>): [T, () => void] => {
     // there is exactly one Injector pro entry point class instance
-    let injector = new Injector();
+    const injector = new Injector();
     // bootstrap all dependencies
-    let entryClass = injector.resolve<T>(target);
+    const entryClass = injector.resolve<T>(target);
 
     return [entryClass, () => injector.release()];
 };

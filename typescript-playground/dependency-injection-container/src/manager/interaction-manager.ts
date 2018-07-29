@@ -1,7 +1,7 @@
-import {InjectableClass} from "../di-container";
-import {SceneManager} from "./scene-manager";
-import {FramebufferManager} from "./framebuffer-manager";
-import {uuid} from "../util/uuid";
+import {InjectableClass} from '../di-container';
+import {SceneManager} from './scene-manager';
+import {FramebufferManager} from './framebuffer-manager';
+import {uuid} from '../util/uuid';
 
 @InjectableClass()
 export class InteractionManager {
