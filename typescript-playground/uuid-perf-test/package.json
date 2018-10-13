@@ -1,0 +1,43 @@
+{
+  "name": "uuid-perf-test",
+  "version": "1.0.0",
+  "description": "Performance Tests of various UUID implementations",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start karma.conf.js",
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "prebuild": "rimraf dist",
+    "build": "parcel build src/uuid-1.ts src/uuid-2.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ova2/frontend-tooling-tutorial/tree/master/typescript-playground/uuid-perf-test"
+  },
+  "keywords": [
+    "uuid",
+    "implementation",
+    "performance"
+  ],
+  "private": true,
+  "author": {
+    "name": "Oleg Varaksin",
+    "email": "ovaraksin@googlemail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.5.2",
+    "jasmine-core": "^3.1.0",
+    "karma": "^2.0.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.1.2",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-typescript": "^3.0.13",
+    "parcel-bundler": "^1.9.7",
+    "puppeteer": "^1.6.1",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
+  }
+}
