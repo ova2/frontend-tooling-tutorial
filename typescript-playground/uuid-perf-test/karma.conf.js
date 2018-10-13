@@ -11,6 +11,7 @@ module.exports = function (config) {
         },
         reporters: ["mocha", "karma-typescript"],
         browsers: ["ChromeHeadless"],
+        browserNoActivityTimeout: 100000,
         phantomJsLauncher: {
             exitOnResourceError: true
         },
