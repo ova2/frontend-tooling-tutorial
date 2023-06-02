@@ -1,4 +1,6 @@
-# Performance Tests of three well-known UUID implementations and the native one with `crypto.randomUUID()`
+# Performance tests of three well-known UUID implementations and the native one with `crypto.randomUUID()`
+
+Run them with `npm run test`.
 
 The winner is the 1. implementation.
 
