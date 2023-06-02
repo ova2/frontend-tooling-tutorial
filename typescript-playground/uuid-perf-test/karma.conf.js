@@ -20,8 +20,8 @@ module.exports = function (config) {
         singleRun: true,
         karmaTypescriptConfig: {
             compilerOptions: {
-                target: "ES6",
-                lib: ["es2017", "dom"]
+                target: "ES2022",
+                lib: ["es2020", "dom"]
             }
         }
     });
